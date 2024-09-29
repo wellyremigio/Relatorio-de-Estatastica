@@ -1,0 +1,129 @@
+---
+title: "Regressão Linear Múltipla"
+author: "Larysa Mendes, Vitória Maria, Welly Remígio"
+editor: visual
+---
+
+```{r Setup}
+#| echo: true
+
+# Setup para o relatório Quarto
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# Definindo o espelho do CRAN
+options(repos = c(CRAN = "https://cloud.r-project.org/"))
+
+
+```
+
+# Introdução
+
+Este relatório tem por objetivo ajustar um modelo de regressão linear múltiplo com o intuito de investigar a influência de determinadas características associadas a vendas de cadeirinhas de carro para crianças e diversos fatores que podem influenciar essas vendas.
+
+Neste contexto a regressão será realizada sobre base de dados `Carseats`, que trata das vendas de cadeirinhas de carro para crianças (Child Car Seats) em diferentes locais. Essa base está na biblioteca ISLR (An Introduction to Statistical Learning with Applications in R) que é um pacote em R que acompanha o famoso livro "An Introduction to Statistical Learning" (ISLR). Ela contém vários conjuntos de dados usados para demonstrar técnicas de aprendizado estatístico e machine learning. Essa base de dados contém onze variáveis, sendo três destas quanlitativas, as demais são medidas quantitativas.
+
+# Os dados 
+
+É possível baixar os dados do livro [An Introduction to Statistical Learning with applications in R](https://www.statlearning.com/), mas o pacote `ISLR` pode ser baixado diretamente do *R*, para acessar a base de dados, `Carseats`.
+
+```{r}
+install.packages("ISLR", quiet=TRUE) #instalando pacote
+library(ISLR) #chamando pacote
+
+setwd("C:\\Users\\Notebook\\Documents\\Relatorio_Estatistica")
+write.table(Carseats , file="nome_do_arquivo.csv", sep=";", dec=",") #criando arquivo .csv no local de 
+#help("Carseats") #descrição das variáveis
+#glimpse(Carseats)
+
+```
+
+Descrição da Base de Dados:
+Número de observações: 400
+Variável Resposta:
+- `Sales`: Vendas de cadeirinhas de carro em diferentes locais. (Milhares de unidades)
+
+  
+Variáveis Explicativas:
+- `CompPrice`: Preço da cadeirinha na loja concorrente. (em dólares).  
+- `Income`: Renda média dos consumidores naquela região. (em milhares de dólares).  
+- `Advertising`: Valor gasto em publicidade para aquela região (em milhares de dólares).  
+- `Population`: População da região. (em milhares).  
+- `Price`: Preço da cadeirinha de carro na loja.(em dólares).  
+- `ShelveLoc`: Qualidade da localização da prateleira na loja. ("Good", "Medium", "Bad").  
+- `Age`: Idade média da população na região. (em anos).  
+- `Education`: Nível médio de educação da população na região.(em anos).  
+- `Urban`: Um fator que indica se a região é urbana. ("Yes" ou "No").  
+- `US`: Um fator que indica se a loja está nos EUA. ("Yes" ou "No").  
+
+
+
+## Análise exploratória dos dados
+
+```{r}
+library(skimr)
+
+dados <- Carseats
+
+skim(dados)
+
+```
+
+### Comentários:
+De acordo com a tabela é possível observar que não há ausência de dados.
+# INCOMPLETO
+
+
+
+### Análise de Correlação {#sec-GGally}
+```{r}
+install.packages("GGally", quite=TRUE)
+library(GGally)# Pacote para função ggpairs
+library(ggplot2)
+library(reshape2)
+library(corrplot)
+
+
+head(Carseats)
+carseats_numeric <- Carseats[, sapply(Carseats, is.numeric)]
+cor_matrix <- cor(carseats_numeric)
+print(cor_matrix)
+cor_melted <- melt(cor_matrix)
+
+ggplot(cor_melted, aes(Var1, Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+                       midpoint = 0, limit = c(-1, 1), space = "Lab", 
+                       name = "Correlação") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
+  labs(x = "", y = "")
+
+corrplot(cor_matrix, method = "color", type = "upper", 
+         tl.col = "black", tl.srt = 45, 
+         col = colorRampPalette(c("blue", "white", "red"))(200))
+
+
+### Multicolinearidade: r > 0.9 (ou 0.8)
+
+##graf1 <- ggpairs(dados, columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"),                   ggplot2::aes(colour=ShelveLoc))
+
+##graf1
+
+
+# Salvando o gráfico em .jpeg
+ggsave("Grafico_dispersao_carseats.jpeg")
+
+```
+
+
+
+#Ajustando o modelo de regressão linear múltipla
+#modelo <- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + Age + Education, data = dados)
+#summary(modelo)  # Resumo do modelo
+
+
+
+
+
+

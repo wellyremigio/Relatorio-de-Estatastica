@@ -1,0 +1,21 @@
+project:
+  type: "website"  # ou "document" se for um único relatório
+
+format:
+  html:
+    number-sections: true
+    toc: true
+    toc-depth: 3
+
+# Para configurar o idioma do documento
+lang: pt
+
+# Para definir a data do documento
+date: today
+
+# Para incluir bibliografia (caso você tenha)
+# bibliography: 00_Refs/refs.bib
+
+# Para incluir pacotes ou opções globais
+packages:
+  - ISLR  # Se você precisar carregar pacotes específicos
