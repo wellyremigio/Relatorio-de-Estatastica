@@ -106,21 +106,92 @@ corrplot(cor_matrix, method = "color", type = "upper",
 
 ### Multicolinearidade: r > 0.9 (ou 0.8)
 
-##graf1 <- ggpairs(dados, columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"),                   ggplot2::aes(colour=ShelveLoc))
+#graf1 <- ggpairs(dados, columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"),                   ggplot2::aes(colour=ShelveLoc))
 
-##graf1
+#graf1
 
+
+graf1 <- ggpairs(dados, 
+                 columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
+                 ggplot2::aes(colour=ShelveLoc), 
+                 upper = list(continuous = wrap("cor", size = 3)), # Reduzindo o tamanho das correlações
+                 lower = list(continuous = "points")) +            # Exibe os pontos na parte inferior
+  theme_minimal() +                                              # Tema minimalista
+  theme(axis.text = element_text(size = 8),                      # Ajusta o tamanho do texto nos eixos
+        legend.position = "bottom",                              # Move a legenda para baixo
+        strip.text = element_text(size = 10))    
+
+graf1
 
 # Salvando o gráfico em .jpeg
 ggsave("Grafico_dispersao_carseats.jpeg")
 
 ```
 
+#### Comentários
+
 
 
 #Ajustando o modelo de regressão linear múltipla
 #modelo <- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + Age + Education, data = dados)
-#summary(modelo)  # Resumo do modelo
+#summary(modelo)  # Resumo do modelo#### Multicolinearidade - Analisando o VIF - Variance Inflation Factor
+
+
+Uma maneira de identificar a multicolinearidade é através do **Fator de Inflação da Variância (VIF)**.
+
+O **VIF é calculado** para cada preditor fazendo uma regressão linear desse preditor em todos os outros preditores e, então, obtendo o $R^2$ dessa regressão. O VIF é apenas $1/(1-R^2)$.
+
+**Como interpretar o VIF?**\
+
+> Um **valor maior que 5** indica correlação **potencialmente grave** entre uma determinada variável preditora e outras variáveis preditoras no modelo. Nesse caso, as estimativas de coeficiente e os valores de p na saída da regressão provavelmente não são confiáveis.
+
+> **VIF \> 10** indica **problema de multicolinearidade**.
+
+\ 
+
+Veja abaixo **como obter o vif** usando o *R*, desconsiderando a variável `Sales` no modelo inicial.
+
+O problema da multicolinearidade não pode ser maior que 0,8/0,9
+
+
+
+```{r}
+# Ajuste do modelo de regressão linear múltiplo
+modelo1 <- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + ShelveLoc + Age + Education + Urban + US, data = dados)
+
+#modelo2 <- update(modelo, ~ . -Species)
+#summary(regres)
+
+# Uma opção para obter o: Variance Inflation Factor (VIF)
+library(car) 
+
+vif(modelo1)
+### Multicolinearidade: VIF > 10
+
+```
+
+p valor é grande?
+quem é h0?
+Ho é o modelo completo e H1 modelo sem 
+H0 os modelos são equivalentes
+H1 modelo completo difere do sem a variável
+
+
+
+
+\
+
+# Ajuste do modelo 1 
+
+```{r}
+summary(modelo1)
+
+```
+
+\
+
+
+
 
 
 
