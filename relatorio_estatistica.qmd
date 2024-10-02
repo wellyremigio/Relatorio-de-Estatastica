@@ -80,28 +80,6 @@ De acordo com a tabela é possível observar que não há ausência de dados.
 install.packages("GGally", quite=TRUE)
 library(GGally)# Pacote para função ggpairs
 library(ggplot2)
-library(reshape2)
-library(corrplot)
-
-
-head(Carseats)
-carseats_numeric <- Carseats[, sapply(Carseats, is.numeric)]
-cor_matrix <- cor(carseats_numeric)
-print(cor_matrix)
-cor_melted <- melt(cor_matrix)
-
-ggplot(cor_melted, aes(Var1, Var2, fill = value)) +
-  geom_tile() +
-  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
-                       midpoint = 0, limit = c(-1, 1), space = "Lab", 
-                       name = "Correlação") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
-  labs(x = "", y = "")
-
-corrplot(cor_matrix, method = "color", type = "upper", 
-         tl.col = "black", tl.srt = 45, 
-         col = colorRampPalette(c("blue", "white", "red"))(200))
 
 
 ### Multicolinearidade: r > 0.9 (ou 0.8)
@@ -113,12 +91,12 @@ corrplot(cor_matrix, method = "color", type = "upper",
 
 graf1 <- ggpairs(dados, 
                  columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
-                 ggplot2::aes(colour=ShelveLoc), 
-                 upper = list(continuous = wrap("cor", size = 3)), # Reduzindo o tamanho das correlações
-                 lower = list(continuous = "points")) +            # Exibe os pontos na parte inferior
-  theme_minimal() +                                              # Tema minimalista
-  theme(axis.text = element_text(size = 8),                      # Ajusta o tamanho do texto nos eixos
-        legend.position = "bottom",                              # Move a legenda para baixo
+                 ggplot2::aes(colour=US), 
+                 upper = list(continuous = wrap("cor", size = 3)), 
+                 lower = list(continuous = "points")) +            
+  theme_minimal() +                                              
+  theme(axis.text = element_text(size = 8),                      
+        legend.position = "bottom",                              
         strip.text = element_text(size = 10))    
 
 graf1
@@ -129,6 +107,32 @@ ggsave("Grafico_dispersao_carseats.jpeg")
 ```
 
 #### Comentários
+
+Com relação à análise de correlação é algo desejável observar altas correlações das variáveis independentes com relação à variável dependente que no presente caso é `Sales`.
+
+Por outro lado, altas correlações entre as demais variáveis a serem utilizadas como variáveis independentes nos dá indícios de que haverá **problemas de multicolinearidade** ao ajustar o MRLM. **Como regra geral** isto ocorre quando há **correlações** $\geq 0.9$ ou $\geq 0.8$ **entre** as **variáveis preditoras**.
+
+Dito isto, é possível observar que:
+
+1)  A variável dependente `Sales`:
+
+<!-- -->
+
+i.  não apresenta correlação linear significante com a variável `CompPrice` (r= 0,064, p \> 0.10);
+
+ii. apresenta correlação linear significante com a variável `Income` (r= 0.152, p \< 0.001);
+
+iii.apresenta correlação linear significante com a variável `Advertising` (r= 0.270, p \< 0.001);
+
+iv. não apresenta correlação linear significante com a variável `Population` (r= 0.050, p \> 0.10);
+
+v. apresenta correlação linear significante com a variável `Price` (r= -0.445, p \< 0.001);
+
+vi. apresenta correlação linear significante com a variável `Age` (r= -0.232, p \< 0.001);
+
+vii. não apresenta correlação linear significante com a variável `Education` (r= -0.052,  p \> 0.10);
+
+<!-- -->
 
 
 
@@ -157,7 +161,9 @@ O problema da multicolinearidade não pode ser maior que 0,8/0,9
 
 ```{r}
 # Ajuste do modelo de regressão linear múltiplo
-modelo1 <- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + ShelveLoc + Age + Education + Urban + US, data = dados)
+#modelo1 <- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + ShelveLoc + Age + Education + Urban + US, data = dados)
+
+modelo1 <- lm(Sales ~ . - ShelveLoc - US - Urban, data = dados)
 
 #modelo2 <- update(modelo, ~ . -Species)
 #summary(regres)
@@ -169,19 +175,11 @@ vif(modelo1)
 ### Multicolinearidade: VIF > 10
 
 ```
-
-p valor é grande?
-quem é h0?
-Ho é o modelo completo e H1 modelo sem 
-H0 os modelos são equivalentes
-H1 modelo completo difere do sem a variável
-
-
-
+Como podemos ver, são as variáveis `Petal.Length` e `Petal.Width` que apresentam vif maior que 10 e são exatamente elas que também apresentaram forte correlação positiva. Fiquemos atentos ao resultados da regressão associados a estas duas variáveis preditoras que dão indício para o posterior problema de multicolinearidade.
 
 \
 
-# Ajuste do modelo 1 
+# Ajuste do modelo 1 (Sem as vaiáveis `CompPrice`, `US` e `Urban`)
 
 ```{r}
 summary(modelo1)
