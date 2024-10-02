@@ -1,6 +1,7 @@
 ---
 title: "Regressão Linear Múltipla"
-author: "Larysa Mendes, Vitória Maria, Welly Remígio"
+author: "Larysa Mendes, Vitória Maria, Welly Remígio" 
+format: docx
 editor: visual
 ---
 
