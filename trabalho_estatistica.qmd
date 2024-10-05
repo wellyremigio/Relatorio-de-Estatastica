@@ -1,7 +1,7 @@
 ---
 title: "Regressão Linear Múltipla"
 author: "Larysa Mendes, Vitória Maria, Welly Remígio" 
-format: docx
+format: html
 editor: visual
 ---
 
@@ -21,7 +21,7 @@ options(repos = c(CRAN = "https://cloud.r-project.org/"))
 # Introdução
 
 Este relatório tem por objetivo ajustar um modelo de regressão linear múltiplo com o intuito de investigar a influência de determinadas características associadas a vendas de cadeirinhas de carro para crianças e diversos fatores que podem influenciar essas vendas.
-
+dasdasd
 Neste contexto a regressão será realizada sobre base de dados `Carseats`, que trata das vendas de cadeirinhas de carro para crianças (Child Car Seats) em diferentes locais. Essa base está na biblioteca ISLR (An Introduction to Statistical Learning with Applications in R) que é um pacote em R que acompanha o famoso livro "An Introduction to Statistical Learning" (ISLR). Ela contém vários conjuntos de dados usados para demonstrar técnicas de aprendizado estatístico e machine learning. Essa base de dados contém onze variáveis, sendo três destas quanlitativas, as demais são medidas quantitativas.
 
 # Os dados 
