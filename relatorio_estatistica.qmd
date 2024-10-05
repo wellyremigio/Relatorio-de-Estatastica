@@ -1,6 +1,6 @@
 ---
 title: "Regressão Linear Múltipla"
-author: "Larysa Mendes, Vitória Maria, Welly Remígio"
+author: "Larysa Mendes de Almeida, Vitória Maria do Nascimento, Welly Remígio Bezerra"
 editor: visual
 ---
 
@@ -21,7 +21,7 @@ options(repos = c(CRAN = "https://cloud.r-project.org/"))
 
 Este relatório tem por objetivo ajustar um modelo de regressão linear múltiplo com o intuito de investigar a influência de determinadas características associadas a vendas de cadeirinhas de carro para crianças e diversos fatores que podem influenciar essas vendas.
 
-Neste contexto a regressão será realizada sobre base de dados `Carseats`, que trata das vendas de cadeirinhas de carro para crianças (Child Car Seats) em diferentes locais. Essa base está na biblioteca ISLR (An Introduction to Statistical Learning with Applications in R) que é um pacote em R que acompanha o famoso livro "An Introduction to Statistical Learning" (ISLR). Ela contém vários conjuntos de dados usados para demonstrar técnicas de aprendizado estatístico e machine learning. Essa base de dados contém onze variáveis, sendo três destas quanlitativas, as demais são medidas quantitativas.
+Neste contexto a regressão será realizada sobre base de dados `Carseats`, que trata das vendas de cadeirinhas de carro para crianças (Child Car Seats) em diferentes locais. Essa base está na biblioteca ISLR (An Introduction to Statistical Learning with Applications in R) que é um pacote em R que acompanha o famoso livro "An Introduction to Statistical Learning" (ISLR). Ela contém vários conjuntos de dados usados para demonstrar técnicas de aprendizado estatístico e machine learning. Essa base de dados contém onze variáveis, sendo três qualitativas e as demais quantitativas.
 
 # Os dados 
 
@@ -30,12 +30,11 @@ Neste contexto a regressão será realizada sobre base de dados `Carseats`, que 
 ```{r}
 install.packages("ISLR", quiet=TRUE) #instalando pacote
 library(ISLR) #chamando pacote
-
+```
+```{r}
 setwd("C:\\Users\\Notebook\\Documents\\Relatorio_Estatistica")
-write.table(Carseats , file="nome_do_arquivo.csv", sep=";", dec=",") #criando arquivo .csv no local de 
-#help("Carseats") #descrição das variáveis
-#glimpse(Carseats)
-
+write.table(Carseats , file="dados_carseats.csv", sep=";", dec=",") #criando arquivo .csv no local desejado
+glimpse(Carseats)
 ```
 
 Descrição da Base de Dados:
@@ -70,12 +69,11 @@ skim(dados)
 ```
 
 ### Comentários:
-De acordo com a tabela é possível observar que não há ausência de dados.
-# INCOMPLETO
+De acordo com a tabela é possível observar que não há ausência de dados. O conjunto contém tanto variáveis numéricas (como `Sales`, `CompPrice`, `Income`, `Advertising`, `Population`, `Price`, `Age`) quanto categóricas (como `ShelveLoc`, `Urban` e `US`). 
+As variáveis numéricas foram descritas por meio de estatísticas como média, mediana, desvio padrão, e percentis, fornecendo uma visão clara sobre sua distribuição. Por exemplo, a variável Sales apresenta um desvio padrão considerável, indicando uma variabilidade significativa nas vendas entre as lojas. 
 
 
-
-### Análise de Correlação {#sec-GGally}
+### Análise de Correlação {#sec-GGally} - INCOMPLETO
 ```{r}
 install.packages("GGally", quite=TRUE)
 library(GGally)# Pacote para função ggpairs
@@ -111,25 +109,36 @@ Dito isto, é possível observar que:
 
 1)  A variável dependente `Sales`:
 
-<!-- -->
+      i.  não apresenta correlação linear significante com a variável `CompPrice` (r= 0,064, p \> 0.10);
 
-i.  não apresenta correlação linear significante com a variável `CompPrice` (r= 0,064, p \> 0.10);
+      ii. apresenta correlação linear significante com a variável `Income` (r= 0.152, p \< 0.001);
 
-ii. apresenta correlação linear significante com a variável `Income` (r= 0.152, p \< 0.001);
+      iii. apresenta correlação linear significante com a variável `Advertising` (r= 0.270, p \< 0.001);
 
-iii.apresenta correlação linear significante com a variável `Advertising` (r= 0.270, p \< 0.001);
+      iv. não apresenta correlação linear significante com a variável `Population` (r= 0.050, p \> 0.10);
 
-iv. não apresenta correlação linear significante com a variável `Population` (r= 0.050, p \> 0.10);
+      v. apresenta correlação linear significante com a variável `Price` (r= -0.445, p \< 0.001);
 
-v. apresenta correlação linear significante com a variável `Price` (r= -0.445, p \< 0.001);
+      vi. apresenta correlação linear significante com a variável `Age` (r= -0.232, p \< 0.001);
 
-vi. apresenta correlação linear significante com a variável `Age` (r= -0.232, p \< 0.001);
+      vii. não apresenta correlação linear significante com a variável `Education` (r= -0.052,  p \> 0.10);
 
-vii. não apresenta correlação linear significante com a variável `Education` (r= -0.052,  p \> 0.10);
+2) Além disso, é importante destacar que:
 
-<!-- -->
+      i. A variável `Income` apresenta correlação linear significativa com a variável `Advertising` (r = 0.224, p \< 0.001), indicando que as variáveis associadas a renda e publicidade estão positivamente correlacionadas.
+
+      ii. A variável `Price` apresenta correlação linear significativa com a variável `Age` (r = -0.310, p \< 0.001), sugerindo que o preço tende a ser mais baixo em produtos mais antigos.
+
+      iii. A correlação entre `Advertising` e `Population` (r = 0.092, p \> 0.10) não é significativa, o que sugere que a população não tem uma influência direta na publicidade.
+
+Por fim, a análise das correlações evidencia a importância de se considerar a multicolinearidade ao ajustar o modelo, pois correlações elevadas entre variáveis independentes podem impactar a interpretação e a precisão dos coeficientes do modelo.
 
 
+<<<<<<< HEAD
+=======
+#### Multicolinearidade - Analisando o VIF - Variance Inflation Factor
+
+>>>>>>> 4485bec49fa64c80f12c6b2f31987879b291d241
 Uma maneira de identificar a multicolinearidade é através do **Fator de Inflação da Variância (VIF)**.
 
 O **VIF é calculado** para cada preditor fazendo uma regressão linear desse preditor em todos os outros preditores e, então, obtendo o $R^2$ dessa regressão. O VIF é apenas $1/(1-R^2)$.
@@ -140,43 +149,129 @@ O **VIF é calculado** para cada preditor fazendo uma regressão linear desse pr
 
 > **VIF \> 10** indica **problema de multicolinearidade**.
 
-\ 
 
 Veja abaixo **como obter o vif** usando o *R*, desconsiderando a variável `Sales` no modelo inicial.
 
-O problema da multicolinearidade não pode ser maior que 0,8/0,9
-
-
 
 ```{r}
+# Ajuste do modelo de regressão linear múltiplo
+modelo1 <- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + ShelveLoc + Age + Education + Urban + US, data = dados)
 
-
-modelo1 <- lm(Sales ~ . - ShelveLoc - US - Urban, data = dados)
-
+# Uma opção para obter o: Variance Inflation Factor (VIF)
 library(car) 
 
 vif(modelo1)
 ```
+<<<<<<< HEAD
 Como podemos ver, são as variáveis `x` e `y` que apresentam vif maior que 10 e são exatamente elas que também apresentaram forte correlação positiva. Fiquemos atentos ao resultados da regressão associados a estas duas variáveis preditoras que dão indício para o posterior problema de multicolinearidade.
+=======
+Como podemos observar, as variáveis `Price` e `Advertising` apresentam VIF maior que 10, indicando um potencial problema de multicolinearidade. É importante notar que essas variáveis também apresentaram correlações significativas entre si. Devemos ficar atentos aos resultados da regressão associados a essas duas variáveis preditoras, pois a alta multicolinearidade pode afetar a confiabilidade das estimativas de coeficiente e os valores de p.
+>>>>>>> 4485bec49fa64c80f12c6b2f31987879b291d241
 
-\
 
 # Ajuste do modelo 1 (Sem as vaiáveis `CompPrice`, `US` e `Urban`)
 
 ```{r}
 summary(modelo1)
+```
+
+Ao observar o ajuste do primeiro modelo com o intuito de prever as vendas (`Sales`), verificamos que todas as variáveis explicativas apresentam um efeito estatisticamente significativo, refletindo um bom ajuste, conforme indicado pelo Coeficiente de Determinação Ajustado (Adjusted R-squared: 0.8557). Entretanto, dois pontos merecem destaque:
+
+1) O erro padrão da variável `Price` é significativamente maior do que os erros padrões das demais variáveis preditoras, sugerindo uma maior incerteza na estimativa desse coeficiente.
+
+2) Enquanto a variável Income demonstra um efeito positivo sobre as vendas (`Sales`) para cada aumento unitário em sua medida, a variável `Age` indica um efeito negativo. Essa contradição é curiosa, já que ambas as variáveis deveriam, em um contexto de vendas, apresentar uma relação mais alinhada e positiva.
+
+Em resumo, com base nas análises prévias e nas observações derivadas dos resultados do modelo, identificamos um potencial problema de multicolinearidade. As variáveis preditoras `Income` e `Age` podem não estar colaborando de maneira eficaz para explicar a variável resposta `Sales`, uma vez que suas relações podem estar competindo pela mesma informação, comprometendo a confiabilidade dos coeficientes estimados e dos valores p.
+
+## Existe multicolinearidade, e agora?
+
+-   Se você detectar multicolinearidade, o próximo passo é decidir se você precisa resolvê-la de alguma forma.
+
+-   Dependendo do objetivo da sua análise de regressão, você pode não precisar realmente resolver a multicolinearidade.
+
+-   Para uma orientação sobre este tema com mais detalhes, recomendamos a leitura de um Guia disponível em:
+
+<https://www.statology.org/multicollinearity-regression/>
+
+ou
+
+[Quando você pode ignorar a multicolinearidade com segurança?](https://statisticalhorizons.com/multicollinearity/)
+
+## Modelo sem _ (modelo2) - INCOMPLETO 
+
+## Modelo sem _ (modelo3) - INCOMPLETO
+
+# Métodos de seleção de modelos - INCOMPLETO
+
+## Medida AIC - INCOMPLETO
+
+## Comparação de modelos encaixados (ANOVA) - INCOMPLETO
+
+# Seleção automática de modelo pelo AIC
+
+```{r}
+step(modelo1)
+
+#step(modelo1, direction = "backward")
+
+#step(modelo1, direction = "forward")
+
+#step(modelo1, direction = "both")
 
 ```
 
+<<<<<<< HEAD
 Ao observar o ajuste do primeiro modelo com o intuito de prever a variável `Sales`, tem-se que nem todas as variáveis explicam de forma estatísticamente significativa, exceto `Population` e `Education` e com um ajuste indicado pelo Coeficiente de determinação ajustado (Adjusted R-squared:0.5335). 
+=======
+# Modelo selecionado (modelo2) - INCOMPLETO 
+
+## Análises dos pressupostos e Comentários - INCOMPLETO
+
+# Interpretações do modelo selecionado - INCOMPLETO
+
+## Coeficientes padronizados - INCOMPLETO
+
+# Previsões - INCOMPLETO
+
+**Observação**: - INCOMPLETO
+
+## Intervalo de Confiança - INCOMPLETO
+
+## Intervalo de Predição/Previsão - INCOMPLETO
+
+## Observações - INCOMPLETO
+
+## Observações
+
+> 1.  Um **intervalo de predição/previsão** sempre será mais amplo do que um **intervalo de confiança** para os mesmos valores das variáveis independentes.
+
+> 2.  Você deve **usar** um **intervalo de previsão/predição** quando estiver interessado em previsões individuais específicas, porque um **intervalo de confiança** produzirá um intervalo de valores **muito estreito**, resultando em uma chance maior de que o intervalo **não contenha** o valor verdadeiro.
+
+> 3.  Sugere-se a leitura do seguinte Guia sobre previsões de valores:
+
+<https://www.statology.org/prediction-interval-r/>
+>>>>>>> 4485bec49fa64c80f12c6b2f31987879b291d241
 
 \
 
+# Regressão com variáveis Qualitativas (Dummies/Fictícias/Indicadoras) - INCOMPLETO
 
+### Visualizações gráficas - INCOMPLETO
 
+**Interpretações**: - INCOMPLETO
 
+## Sobre os "levels" da variável `Sales` - INCOMPLETO
 
+### Interpretações - INCOMPLETO
 
+### Interpretações - INCOMPLETO
 
+## Alterando a Categoria de Referência - INCOMPLETO
+
+**Comentários/Observações** - INCOMPLETO
+
+**Comentários/Observações** - INCOMPLETO
+
+# Conclusão - INCOMPLETO
 
 
