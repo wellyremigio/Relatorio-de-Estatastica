@@ -34,7 +34,6 @@ library(ISLR) #chamando pacote
 ```{r}
 setwd("C:\\Users\\Notebook\\Documents\\Relatorio_Estatistica")
 write.table(Carseats , file="dados_carseats.csv", sep=";", dec=",") #criando arquivo .csv no local desejado
-glimpse(Carseats)
 ```
 
 Descrição da Base de Dados:
@@ -273,5 +272,3 @@ Ao observar o ajuste do primeiro modelo com o intuito de prever a variável `Sal
 **Comentários/Observações** - INCOMPLETO
 
 # Conclusão - INCOMPLETO
-
-

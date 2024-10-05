@@ -2,6 +2,11 @@
 title: "Regressão Linear Múltipla"
 author: "Larysa Mendes, Vitória Maria, Welly Remígio" 
 format: html
+number-sections: true
+toc: true
+toc-depth: 3
+lang: pt
+date: today
 editor: visual
 ---
 
@@ -85,6 +90,8 @@ library(ggplot2)
 
 ### Multicolinearidade: r > 0.9 (ou 0.8)
 
+#Gráfico com a variável qualitativa US
+
 graf1 <- ggpairs(dados, 
                  columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
                  ggplot2::aes(colour=US), 
@@ -96,6 +103,36 @@ graf1 <- ggpairs(dados,
         strip.text = element_text(size = 10))    
 
 graf1
+
+
+#Gráfico com a variável qualitativa Urban
+
+graf2 <- ggpairs(dados, 
+                 columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
+                 ggplot2::aes(colour=Urban), 
+                 upper = list(continuous = wrap("cor", size = 3)), 
+                 lower = list(continuous = "points")) +            
+  theme_minimal() +                                              
+  theme(axis.text = element_text(size = 8),                      
+        legend.position = "bottom",                              
+        strip.text = element_text(size = 10))    
+
+graf2
+
+
+#Gráfico com a variável qualitativa ShelveLoc
+
+graf3 <- ggpairs(dados, 
+                 columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
+                 ggplot2::aes(colour=ShelveLoc), 
+                 upper = list(continuous = wrap("cor", size = 3)), 
+                 lower = list(continuous = "points")) +            
+  theme_minimal() +                                              
+  theme(axis.text = element_text(size = 8),                      
+        legend.position = "bottom",                              
+        strip.text = element_text(size = 10))    
+
+graf3
 
 # Salvando o gráfico em .jpeg
 ggsave("Grafico_dispersao_carseats.jpeg")
@@ -118,7 +155,7 @@ i.  não apresenta correlação linear significante com a variável `CompPrice` 
 
 ii. apresenta correlação linear significante com a variável `Income` (r= 0.152, p \< 0.001);
 
-iii.apresenta correlação linear significante com a variável `Advertising` (r= 0.270, p \< 0.001);
+iii. apresenta correlação linear significante com a variável `Advertising` (r= 0.270, p \< 0.001);
 
 iv. não apresenta correlação linear significante com a variável `Population` (r= 0.050, p \> 0.10);
 
@@ -142,41 +179,98 @@ O **VIF é calculado** para cada preditor fazendo uma regressão linear desse pr
 > **VIF \> 10** indica **problema de multicolinearidade**.
 
 \ 
-
-Veja abaixo **como obter o vif** usando o *R*, desconsiderando a variável `Sales` no modelo inicial.
-
-O problema da multicolinearidade não pode ser maior que 0,8/0,9
-
+Veja abaixo **como obter o vif** usando o *R*, desconsiderando as variáveis ShelveLoc, US e Urban.
 
 
 ```{r}
 
 
-modelo1 <- lm(Sales ~ . - ShelveLoc - US - Urban, data = dados)
+#modelo1 <- lm(Sales ~ . - ShelveLoc - US - Urban, data = dados)
+modelo1 <- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + ShelveLoc + Age + Education + Urban + US, data = dados)
 
 library(car) 
 
 vif(modelo1)
 ```
-Como podemos ver, são as variáveis `x` e `y` que apresentam vif maior que 10 e são exatamente elas que também apresentaram forte correlação positiva. Fiquemos atentos ao resultados da regressão associados a estas duas variáveis preditoras que dão indício para o posterior problema de multicolinearidade.
-
+Como podemos ver, nenhuma das variáveis tem o VIF > 10, logo isso indica que não há um problema de multicolinearidade. 
 \
 
-# Ajuste do modelo 1 (Sem as vaiáveis `CompPrice`, `US` e `Urban`)
+# Modelo 1 (Com todas as variáveis)
 
 ```{r}
 summary(modelo1)
 
 ```
 
-Ao observar o ajuste do primeiro modelo com o intuito de prever a variável `Sales`, tem-se que nem todas as variáveis explicam de forma estatísticamente significativa, exceto `Population` e `Education` e com um ajuste indicado pelo Coeficiente de determinação ajustado (Adjusted R-squared:0.5335). 
+Ao observar o primeiro modelo com o intuito de prever a variável `Sales`, tem-se que aproximadamente 87,34% (Multiple R-squared: 0,8734) da variação nas vendas é explicada pelas variáveis independentes, o que é um bom ajuste. Um valor de 86,98% (Adjusted R-squared: 0,8698) confirma que, mesmo ajustando para o número de variáveis no modelo, o ajuste ainda é forte. Isso é importante porque evita o viés de um R² inflado quando são adicionados mais preditores. 
+O valor de F elevado e o p-valor muito baixo (< 2.2e-16) indicam que o modelo como um todo é estatisticamente significativo, ou seja, pelo menos uma das variáveis independentes está associada às vendas. 
+
+O modelo de regressão parece fornecer uma boa explicação para as vendas com base nas variáveis incluídas, especialmente o preço (`Price`), o preço dos concorrentes (`CompPrice`), a renda (`Income`), a publicidade (`Advertising`) e a idade (`Age`). Contudo, `Population`, `Education`, `Urban` e `US` não mostraram-se significativas.
+\
+
+
+## Modelo sem `Population` (modelo2) {#sec-modelo2selecionado}
+
+```{r}
+modelo2 <- update(modelo1, ~ . - Population)
+
+summary(modelo2)
+
+```
+
+
+> Observa-se que para este modelo ajustado ocorreu um aumento no valor da adequação de ajuste do modelo para 87,01% (Adjusted R-squared: 0.8701).
+\
+
+
+## Modelo sem `Education` (modelo3)
+
+```{r}
+modelo3 <- update(modelo1, ~ . - Education)
+
+summary(modelo3)
+
+```
+> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo continuou igual ao modelo 1 com 86,98% (Adjusted R-squared: 0.8698).
+
+
+
+## Modelo sem `Urban` (modelo4)
+
+```{r}
+modelo4 <- update(modelo1, ~ . - Urban)
+
+summary(modelo4)
+
+```
+> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo continuou igual ao modelo 1 com 86,98% (Adjusted R-squared: 0.8698).
+
+
+## Modelo sem `US` (modelo5)
+
+```{r}
+modelo5 <- update(modelo1, ~ . - US)
+
+summary(modelo5)
+
+```
+> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697).
+
+
+## Modelo sem `Population`, `Education`, `Urban` e `US` (modelo6)
+
+```{r}
+modelo6 <- update(modelo1, ~ . -Population - Education - Urban - US)
+
+summary(modelo6)
+
+```
+> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697).
 
 \
 
 
-
-
-
+# Métodos de seleção de modelos
 
 
 

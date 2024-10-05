@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Larysa Mendes, Vitória Maria, Welly Remígio">
+<meta name="author" content="Larysa Mendes de Almeida, Vitória Maria do Nascimento, Welly Remígio Bezerra">
 
 <title>Regressão Linear Múltipla</title>
 <style>
@@ -151,10 +151,47 @@ window.Quarto = {
   <li><a href="#análise-exploratória-dos-dados" id="toc-análise-exploratória-dos-dados" class="nav-link" data-scroll-target="#análise-exploratória-dos-dados"><span class="header-section-number">2.1</span> Análise exploratória dos dados</a>
   <ul class="collapse">
   <li><a href="#comentários" id="toc-comentários" class="nav-link" data-scroll-target="#comentários"><span class="header-section-number">2.1.1</span> Comentários:</a></li>
-  <li><a href="#sec-GGally" id="toc-sec-GGally" class="nav-link" data-scroll-target="#sec-GGally"><span class="header-section-number">2.1.2</span> Análise de Correlação</a></li>
+  <li><a href="#análise-de-correlação-sec-ggally---incompleto" id="toc-análise-de-correlação-sec-ggally---incompleto" class="nav-link" data-scroll-target="#análise-de-correlação-sec-ggally---incompleto"><span class="header-section-number">2.1.2</span> Análise de Correlação {#sec-GGally} - INCOMPLETO</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban" id="toc-ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban" class="nav-link" data-scroll-target="#ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban"><span class="header-section-number">3</span> Ajuste do modelo 1 (Sem as vaiáveis <code>CompPrice</code>, <code>US</code> e <code>Urban</code>)</a></li>
+  <li><a href="#head" id="toc-head" class="nav-link" data-scroll-target="#head"><span class="header-section-number">3</span> &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</a></li>
+  <li><a href="#ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban" id="toc-ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban" class="nav-link" data-scroll-target="#ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban"><span class="header-section-number">4</span> Ajuste do modelo 1 (Sem as vaiáveis <code>CompPrice</code>, <code>US</code> e <code>Urban</code>)</a>
+  <ul class="collapse">
+  <li><a href="#existe-multicolinearidade-e-agora" id="toc-existe-multicolinearidade-e-agora" class="nav-link" data-scroll-target="#existe-multicolinearidade-e-agora"><span class="header-section-number">4.1</span> Existe multicolinearidade, e agora?</a></li>
+  <li><a href="#modelo-sem-_-modelo2---incompleto" id="toc-modelo-sem-_-modelo2---incompleto" class="nav-link" data-scroll-target="#modelo-sem-_-modelo2---incompleto"><span class="header-section-number">4.2</span> Modelo sem _ (modelo2) - INCOMPLETO</a></li>
+  <li><a href="#modelo-sem-_-modelo3---incompleto" id="toc-modelo-sem-_-modelo3---incompleto" class="nav-link" data-scroll-target="#modelo-sem-_-modelo3---incompleto"><span class="header-section-number">4.3</span> Modelo sem _ (modelo3) - INCOMPLETO</a></li>
+  </ul></li>
+  <li><a href="#métodos-de-seleção-de-modelos---incompleto" id="toc-métodos-de-seleção-de-modelos---incompleto" class="nav-link" data-scroll-target="#métodos-de-seleção-de-modelos---incompleto"><span class="header-section-number">5</span> Métodos de seleção de modelos - INCOMPLETO</a>
+  <ul class="collapse">
+  <li><a href="#medida-aic---incompleto" id="toc-medida-aic---incompleto" class="nav-link" data-scroll-target="#medida-aic---incompleto"><span class="header-section-number">5.1</span> Medida AIC - INCOMPLETO</a></li>
+  <li><a href="#comparação-de-modelos-encaixados-anova---incompleto" id="toc-comparação-de-modelos-encaixados-anova---incompleto" class="nav-link" data-scroll-target="#comparação-de-modelos-encaixados-anova---incompleto"><span class="header-section-number">5.2</span> Comparação de modelos encaixados (ANOVA) - INCOMPLETO</a></li>
+  </ul></li>
+  <li><a href="#seleção-automática-de-modelo-pelo-aic" id="toc-seleção-automática-de-modelo-pelo-aic" class="nav-link" data-scroll-target="#seleção-automática-de-modelo-pelo-aic"><span class="header-section-number">6</span> Seleção automática de modelo pelo AIC</a>
+  <ul class="collapse">
+  <li><a href="#análises-dos-pressupostos-e-comentários---incompleto" id="toc-análises-dos-pressupostos-e-comentários---incompleto" class="nav-link" data-scroll-target="#análises-dos-pressupostos-e-comentários---incompleto"><span class="header-section-number">6.1</span> Análises dos pressupostos e Comentários - INCOMPLETO</a></li>
+  </ul></li>
+  <li><a href="#interpretações-do-modelo-selecionado---incompleto" id="toc-interpretações-do-modelo-selecionado---incompleto" class="nav-link" data-scroll-target="#interpretações-do-modelo-selecionado---incompleto"><span class="header-section-number">7</span> Interpretações do modelo selecionado - INCOMPLETO</a>
+  <ul class="collapse">
+  <li><a href="#coeficientes-padronizados---incompleto" id="toc-coeficientes-padronizados---incompleto" class="nav-link" data-scroll-target="#coeficientes-padronizados---incompleto"><span class="header-section-number">7.1</span> Coeficientes padronizados - INCOMPLETO</a></li>
+  </ul></li>
+  <li><a href="#previsões---incompleto" id="toc-previsões---incompleto" class="nav-link" data-scroll-target="#previsões---incompleto"><span class="header-section-number">8</span> Previsões - INCOMPLETO</a>
+  <ul class="collapse">
+  <li><a href="#intervalo-de-confiança---incompleto" id="toc-intervalo-de-confiança---incompleto" class="nav-link" data-scroll-target="#intervalo-de-confiança---incompleto"><span class="header-section-number">8.1</span> Intervalo de Confiança - INCOMPLETO</a></li>
+  <li><a href="#intervalo-de-prediçãoprevisão---incompleto" id="toc-intervalo-de-prediçãoprevisão---incompleto" class="nav-link" data-scroll-target="#intervalo-de-prediçãoprevisão---incompleto"><span class="header-section-number">8.2</span> Intervalo de Predição/Previsão - INCOMPLETO</a></li>
+  <li><a href="#observações---incompleto" id="toc-observações---incompleto" class="nav-link" data-scroll-target="#observações---incompleto"><span class="header-section-number">8.3</span> Observações - INCOMPLETO</a></li>
+  <li><a href="#observações" id="toc-observações" class="nav-link" data-scroll-target="#observações"><span class="header-section-number">8.4</span> Observações</a></li>
+  </ul></li>
+  <li><a href="#regressão-com-variáveis-qualitativas-dummiesfictíciasindicadoras---incompleto" id="toc-regressão-com-variáveis-qualitativas-dummiesfictíciasindicadoras---incompleto" class="nav-link" data-scroll-target="#regressão-com-variáveis-qualitativas-dummiesfictíciasindicadoras---incompleto"><span class="header-section-number">9</span> Regressão com variáveis Qualitativas (Dummies/Fictícias/Indicadoras) - INCOMPLETO</a>
+  <ul class="collapse">
+  <li><a href="#visualizações-gráficas---incompleto" id="toc-visualizações-gráficas---incompleto" class="nav-link" data-scroll-target="#visualizações-gráficas---incompleto"><span class="header-section-number">9.0.1</span> Visualizações gráficas - INCOMPLETO</a></li>
+  <li><a href="#sobre-os-levels-da-variável-sales---incompleto" id="toc-sobre-os-levels-da-variável-sales---incompleto" class="nav-link" data-scroll-target="#sobre-os-levels-da-variável-sales---incompleto"><span class="header-section-number">9.1</span> Sobre os “levels” da variável <code>Sales</code> - INCOMPLETO</a>
+  <ul class="collapse">
+  <li><a href="#interpretações---incompleto" id="toc-interpretações---incompleto" class="nav-link" data-scroll-target="#interpretações---incompleto"><span class="header-section-number">9.1.1</span> Interpretações - INCOMPLETO</a></li>
+  <li><a href="#interpretações---incompleto-1" id="toc-interpretações---incompleto-1" class="nav-link" data-scroll-target="#interpretações---incompleto-1"><span class="header-section-number">9.1.2</span> Interpretações - INCOMPLETO</a></li>
+  </ul></li>
+  <li><a href="#alterando-a-categoria-de-referência---incompleto" id="toc-alterando-a-categoria-de-referência---incompleto" class="nav-link" data-scroll-target="#alterando-a-categoria-de-referência---incompleto"><span class="header-section-number">9.2</span> Alterando a Categoria de Referência - INCOMPLETO</a></li>
+  </ul></li>
+  <li><a href="#conclusão---incompleto" id="toc-conclusão---incompleto" class="nav-link" data-scroll-target="#conclusão---incompleto"><span class="header-section-number">10</span> Conclusão - INCOMPLETO</a></li>
   </ul>
 </nav>
     </div>
@@ -173,14 +210,14 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Autor</div>
     <div class="quarto-title-meta-contents">
-             <p>Larysa Mendes, Vitória Maria, Welly Remígio </p>
+             <p>Larysa Mendes de Almeida, Vitória Maria do Nascimento, Welly Remígio Bezerra </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2 de outubro de 2024</p>
+      <p class="date">4 de outubro de 2024</p>
     </div>
   </div>
   
@@ -203,7 +240,7 @@ window.Quarto = {
 <section id="introdução" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introdução</h1>
 <p>Este relatório tem por objetivo ajustar um modelo de regressão linear múltiplo com o intuito de investigar a influência de determinadas características associadas a vendas de cadeirinhas de carro para crianças e diversos fatores que podem influenciar essas vendas.</p>
-<p>Neste contexto a regressão será realizada sobre base de dados <code>Carseats</code>, que trata das vendas de cadeirinhas de carro para crianças (Child Car Seats) em diferentes locais. Essa base está na biblioteca ISLR (An Introduction to Statistical Learning with Applications in R) que é um pacote em R que acompanha o famoso livro “An Introduction to Statistical Learning” (ISLR). Ela contém vários conjuntos de dados usados para demonstrar técnicas de aprendizado estatístico e machine learning. Essa base de dados contém onze variáveis, sendo três destas quanlitativas, as demais são medidas quantitativas.</p>
+<p>Neste contexto a regressão será realizada sobre base de dados <code>Carseats</code>, que trata das vendas de cadeirinhas de carro para crianças (Child Car Seats) em diferentes locais. Essa base está na biblioteca ISLR (An Introduction to Statistical Learning with Applications in R) que é um pacote em R que acompanha o famoso livro “An Introduction to Statistical Learning” (ISLR). Ela contém vários conjuntos de dados usados para demonstrar técnicas de aprendizado estatístico e machine learning. Essa base de dados contém onze variáveis, sendo três qualitativas e as demais quantitativas.</p>
 </section>
 <section id="os-dados" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Os dados</h1>
@@ -213,12 +250,11 @@ window.Quarto = {
 <div class="cell-output cell-output-stdout">
 <pre><code>package 'ISLR' successfully unpacked and MD5 sums checked</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR) <span class="co">#chamando pacote</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">Notebook</span><span class="sc">\\</span><span class="st">Documents</span><span class="sc">\\</span><span class="st">Relatorio_Estatistica"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(Carseats , <span class="at">file=</span><span class="st">"nome_do_arquivo.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">dec=</span><span class="st">","</span>) <span class="co">#criando arquivo .csv no local de </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#help("Carseats") #descrição das variáveis</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#glimpse(Carseats)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR) <span class="co">#chamando pacote</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">Notebook</span><span class="sc">\\</span><span class="st">Documents</span><span class="sc">\\</span><span class="st">Relatorio_Estatistica"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(Carseats , <span class="at">file=</span><span class="st">"dados_carseats.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">dec=</span><span class="st">","</span>) <span class="co">#criando arquivo .csv no local desejado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Descrição da Base de Dados: Número de observações: 400 Variável Resposta: - <code>Sales</code>: Vendas de cadeirinhas de carro em diferentes locais. (Milhares de unidades)</p>
 <p>Variáveis Explicativas: - <code>CompPrice</code>: Preço da cadeirinha na loja concorrente. (em dólares).<br>
@@ -234,11 +270,11 @@ window.Quarto = {
 <section id="análise-exploratória-dos-dados" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="análise-exploratória-dos-dados"><span class="header-section-number">2.1</span> Análise exploratória dos dados</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> Carseats</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> Carseats</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Data summary</caption>
@@ -469,49 +505,44 @@ window.Quarto = {
 </div>
 <section id="comentários" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="comentários"><span class="header-section-number">2.1.1</span> Comentários:</h3>
-<p>De acordo com a tabela é possível observar que não há ausência de dados. # INCOMPLETO</p>
+<p>De acordo com a tabela é possível observar que não há ausência de dados. O conjunto contém tanto variáveis numéricas (como <code>Sales</code>, <code>CompPrice</code>, <code>Income</code>, <code>Advertising</code>, <code>Population</code>, <code>Price</code>, <code>Age</code>) quanto categóricas (como <code>ShelveLoc</code>, <code>Urban</code> e <code>US</code>). As variáveis numéricas foram descritas por meio de estatísticas como média, mediana, desvio padrão, e percentis, fornecendo uma visão clara sobre sua distribuição. Por exemplo, a variável Sales apresenta um desvio padrão considerável, indicando uma variabilidade significativa nas vendas entre as lojas.</p>
 </section>
-<section id="sec-GGally" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="sec-GGally"><span class="header-section-number">2.1.2</span> Análise de Correlação</h3>
+<section id="análise-de-correlação-sec-ggally---incompleto" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="análise-de-correlação-sec-ggally---incompleto"><span class="header-section-number">2.1.2</span> Análise de Correlação {#sec-GGally} - INCOMPLETO</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"GGally"</span>, <span class="at">quite=</span><span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"GGally"</span>, <span class="at">quite=</span><span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>package 'GGally' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\Notebook\AppData\Local\Temp\RtmpYvF0Rz\downloaded_packages</code></pre>
+    C:\Users\Notebook\AppData\Local\Temp\RtmpEZzkaq\downloaded_packages</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)<span class="co"># Pacote para função ggpairs</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">### Multicolinearidade: r &gt; 0.9 (ou 0.8)</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#graf1 &lt;- ggpairs(dados, columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"),                   ggplot2::aes(colour=ShelveLoc))</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#graf1</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>graf1 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>US), </span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),                      </span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,                              </span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))    </span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>graf1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)<span class="co"># Pacote para função ggpairs</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">### Multicolinearidade: r &gt; 0.9 (ou 0.8)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>graf1 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>US), </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),                      </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,                              </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))    </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>graf1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="relatorio_estatistica_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="relatorio_estatistica_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Salvando o gráfico em .jpeg</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Grafico_dispersao_carseats.jpeg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Salvando o gráfico em .jpeg</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Grafico_dispersao_carseats.jpeg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="comentários-1" class="level4" data-number="2.1.2.1">
 <h4 data-number="2.1.2.1" class="anchored" data-anchor-id="comentários-1"><span class="header-section-number">2.1.2.1</span> Comentários</h4>
@@ -519,23 +550,47 @@ The downloaded binary packages are in
 <p>Por outro lado, altas correlações entre as demais variáveis a serem utilizadas como variáveis independentes nos dá indícios de que haverá <strong>problemas de multicolinearidade</strong> ao ajustar o MRLM. <strong>Como regra geral</strong> isto ocorre quando há <strong>correlações</strong> <span class="math inline">\(\geq 0.9\)</span> ou <span class="math inline">\(\geq 0.8\)</span> <strong>entre</strong> as <strong>variáveis preditoras</strong>.</p>
 <p>Dito isto, é possível observar que:</p>
 <ol type="1">
-<li>A variável dependente <code>Sales</code>:</li>
-</ol>
-<!-- -->
+<li><p>A variável dependente <code>Sales</code>:</p>
 <ol type="i">
 <li><p>não apresenta correlação linear significante com a variável <code>CompPrice</code> (r= 0,064, p &gt; 0.10);</p></li>
 <li><p>apresenta correlação linear significante com a variável <code>Income</code> (r= 0.152, p &lt; 0.001);</p></li>
-</ol>
-<p>iii.apresenta correlação linear significante com a variável <code>Advertising</code> (r= 0.270, p &lt; 0.001);</p>
-<ol start="4" type="i">
+<li><p>apresenta correlação linear significante com a variável <code>Advertising</code> (r= 0.270, p &lt; 0.001);</p></li>
 <li><p>não apresenta correlação linear significante com a variável <code>Population</code> (r= 0.050, p &gt; 0.10);</p></li>
 <li><p>apresenta correlação linear significante com a variável <code>Price</code> (r= -0.445, p &lt; 0.001);</p></li>
 <li><p>apresenta correlação linear significante com a variável <code>Age</code> (r= -0.232, p &lt; 0.001);</p></li>
 <li><p>não apresenta correlação linear significante com a variável <code>Education</code> (r= -0.052, p &gt; 0.10);</p></li>
+</ol></li>
+<li><p>Além disso, é importante destacar que:</p>
+<ol type="i">
+<li><p>A variável <code>Income</code> apresenta correlação linear significativa com a variável <code>Advertising</code> (r = 0.224, p &lt; 0.001), indicando que as variáveis associadas a renda e publicidade estão positivamente correlacionadas.</p></li>
+<li><p>A variável <code>Price</code> apresenta correlação linear significativa com a variável <code>Age</code> (r = -0.310, p &lt; 0.001), sugerindo que o preço tende a ser mais baixo em produtos mais antigos.</p></li>
+<li><p>A correlação entre <code>Advertising</code> e <code>Population</code> (r = 0.092, p &gt; 0.10) não é significativa, o que sugere que a população não tem uma influência direta na publicidade.</p></li>
+</ol></li>
 </ol>
-<!-- -->
-<p>#Ajustando o modelo de regressão linear múltipla #modelo &lt;- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + Age + Education, data = dados) #summary(modelo) # Resumo do modelo#### Multicolinearidade - Analisando o VIF - Variance Inflation Factor</p>
-<p>Uma maneira de identificar a multicolinearidade é através do <strong>Fator de Inflação da Variância (VIF)</strong>.</p>
+<p>Por fim, a análise das correlações evidencia a importância de se considerar a multicolinearidade ao ajustar o modelo, pois correlações elevadas entre variáveis independentes podem impactar a interpretação e a precisão dos coeficientes do modelo.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="head" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</h1>
+<section id="multicolinearidade---analisando-o-vif---variance-inflation-factor" class="level4" data-number="3.0.0.1">
+<h4 data-number="3.0.0.1" class="anchored" data-anchor-id="multicolinearidade---analisando-o-vif---variance-inflation-factor"><span class="header-section-number">3.0.0.1</span> Multicolinearidade - Analisando o VIF - Variance Inflation Factor</h4>
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<p>4485bec49fa64c80f12c6b2f31987879b291d241 Uma maneira de identificar a multicolinearidade é através do <strong>Fator de Inflação da Variância (VIF)</strong>.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <p>O <strong>VIF é calculado</strong> para cada preditor fazendo uma regressão linear desse preditor em todos os outros preditores e, então, obtendo o <span class="math inline">\(R^2\)</span> dessa regressão. O VIF é apenas <span class="math inline">\(1/(1-R^2)\)</span>.</p>
 <p><strong>Como interpretar o VIF?</strong><br>
 </p>
@@ -545,71 +600,267 @@ The downloaded binary packages are in
 <blockquote class="blockquote">
 <p><strong>VIF &gt; 10</strong> indica <strong>problema de multicolinearidade</strong>.</p>
 </blockquote>
-<p>&nbsp;</p>
 <p>Veja abaixo <strong>como obter o vif</strong> usando o <em>R</em>, desconsiderando a variável <code>Sales</code> no modelo inicial.</p>
-<p>O problema da multicolinearidade não pode ser maior que 0,8/0,9</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste do modelo de regressão linear múltiplo</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo1 &lt;- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + ShelveLoc + Age + Education + Urban + US, data = dados)</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sales <span class="sc">~</span> . <span class="sc">-</span> ShelveLoc <span class="sc">-</span> US <span class="sc">-</span> Urban, <span class="at">data =</span> dados)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo2 &lt;- update(modelo, ~ . -Species)</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(regres)</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Uma opção para obter o: Variance Inflation Factor (VIF)</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car) </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste do modelo de regressão linear múltiplo</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sales <span class="sc">~</span> CompPrice <span class="sc">+</span> Income <span class="sc">+</span> Advertising <span class="sc">+</span> Population <span class="sc">+</span> Price <span class="sc">+</span> ShelveLoc <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Urban <span class="sc">+</span> US, <span class="at">data =</span> dados)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Uma opção para obter o: Variance Inflation Factor (VIF)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car) </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  CompPrice      Income Advertising  Population       Price         Age 
-   1.549720    1.014598    1.084521    1.101597    1.534323    1.015975 
-  Education 
-   1.014991 </code></pre>
+<pre><code>                GVIF Df GVIF^(1/(2*Df))
+CompPrice   1.554618  1        1.246843
+Income      1.024731  1        1.012290
+Advertising 2.103136  1        1.450219
+Population  1.145534  1        1.070296
+Price       1.537068  1        1.239785
+ShelveLoc   1.033891  2        1.008367
+Age         1.021051  1        1.010471
+Education   1.026342  1        1.013086
+Urban       1.022705  1        1.011289
+US          1.980720  1        1.407380</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Multicolinearidade: VIF &gt; 10</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Como podemos ver, são as variáveis <code>x</code> e <code>y</code> que apresentam vif maior que 10 e são exatamente elas que também apresentaram forte correlação positiva. Fiquemos atentos ao resultados da regressão associados a estas duas variáveis preditoras que dão indício para o posterior problema de multicolinearidade.</p>
-<p><br>
-</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Como podemos ver, são as variáveis <code>x</code> e <code>y</code> que apresentam vif maior que 10 e são exatamente elas que também apresentaram forte correlação positiva. Fiquemos atentos ao resultados da regressão associados a estas duas variáveis preditoras que dão indício para o posterior problema de multicolinearidade. ======= Como podemos observar, as variáveis <code>Price</code> e <code>Advertising</code> apresentam VIF maior que 10, indicando um potencial problema de multicolinearidade. É importante notar que essas variáveis também apresentaram correlações significativas entre si. Devemos ficar atentos aos resultados da regressão associados a essas duas variáveis preditoras, pois a alta multicolinearidade pode afetar a confiabilidade das estimativas de coeficiente e os valores de p. &gt;&gt;&gt;&gt;&gt;&gt;&gt; 4485bec49fa64c80f12c6b2f31987879b291d241</p>
 </section>
 </section>
-</section>
-</section>
-<section id="ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Ajuste do modelo 1 (Sem as vaiáveis <code>CompPrice</code>, <code>US</code> e <code>Urban</code>)</h1>
+<section id="ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Ajuste do modelo 1 (Sem as vaiáveis <code>CompPrice</code>, <code>US</code> e <code>Urban</code>)</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = Sales ~ . - ShelveLoc - US - Urban, data = dados)
+lm(formula = Sales ~ CompPrice + Income + Advertising + Population + 
+    Price + ShelveLoc + Age + Education + Urban + US, data = dados)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--5.0598 -1.3515 -0.1739  1.1331  4.8304 
+-2.8692 -0.6908  0.0211  0.6636  3.4115 
 
 Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  7.7076934  1.1176260   6.896 2.15e-11 ***
-CompPrice    0.0939149  0.0078395  11.980  &lt; 2e-16 ***
-Income       0.0128717  0.0034757   3.703 0.000243 ***
-Advertising  0.1308637  0.0151219   8.654  &lt; 2e-16 ***
-Population  -0.0001239  0.0006877  -0.180 0.857092    
-Price       -0.0925226  0.0050521 -18.314  &lt; 2e-16 ***
-Age         -0.0449743  0.0060083  -7.485 4.75e-13 ***
-Education   -0.0399844  0.0371257  -1.077 0.282142    
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      5.6606231  0.6034487   9.380  &lt; 2e-16 ***
+CompPrice        0.0928153  0.0041477  22.378  &lt; 2e-16 ***
+Income           0.0158028  0.0018451   8.565 2.58e-16 ***
+Advertising      0.1230951  0.0111237  11.066  &lt; 2e-16 ***
+Population       0.0002079  0.0003705   0.561    0.575    
+Price           -0.0953579  0.0026711 -35.700  &lt; 2e-16 ***
+ShelveLocGood    4.8501827  0.1531100  31.678  &lt; 2e-16 ***
+ShelveLocMedium  1.9567148  0.1261056  15.516  &lt; 2e-16 ***
+Age             -0.0460452  0.0031817 -14.472  &lt; 2e-16 ***
+Education       -0.0211018  0.0197205  -1.070    0.285    
+UrbanYes         0.1228864  0.1129761   1.088    0.277    
+USYes           -0.1840928  0.1498423  -1.229    0.220    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 1.929 on 392 degrees of freedom
-Multiple R-squared:  0.5417,    Adjusted R-squared:  0.5335 
-F-statistic: 66.18 on 7 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1.019 on 388 degrees of freedom
+Multiple R-squared:  0.8734,    Adjusted R-squared:  0.8698 
+F-statistic: 243.4 on 11 and 388 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Ao observar o ajuste do primeiro modelo com o intuito de prever a variável <code>Sales</code>, tem-se que todas as variáveis explicam de forma estatísticamente significativa e com um bom ajuste indicado pelo Coeficiente de determinação ajustado (Adjusted R-squared:). Entretanto, dois resultados nos chamam a atenção, quais sejam:</p>
+<p>Ao observar o ajuste do primeiro modelo com o intuito de prever as vendas (<code>Sales</code>), verificamos que todas as variáveis explicativas apresentam um efeito estatisticamente significativo, refletindo um bom ajuste, conforme indicado pelo Coeficiente de Determinação Ajustado (Adjusted R-squared: 0.8557). Entretanto, dois pontos merecem destaque:</p>
+<ol type="1">
+<li><p>O erro padrão da variável <code>Price</code> é significativamente maior do que os erros padrões das demais variáveis preditoras, sugerindo uma maior incerteza na estimativa desse coeficiente.</p></li>
+<li><p>Enquanto a variável Income demonstra um efeito positivo sobre as vendas (<code>Sales</code>) para cada aumento unitário em sua medida, a variável <code>Age</code> indica um efeito negativo. Essa contradição é curiosa, já que ambas as variáveis deveriam, em um contexto de vendas, apresentar uma relação mais alinhada e positiva.</p></li>
+</ol>
+<p>Em resumo, com base nas análises prévias e nas observações derivadas dos resultados do modelo, identificamos um potencial problema de multicolinearidade. As variáveis preditoras <code>Income</code> e <code>Age</code> podem não estar colaborando de maneira eficaz para explicar a variável resposta <code>Sales</code>, uma vez que suas relações podem estar competindo pela mesma informação, comprometendo a confiabilidade dos coeficientes estimados e dos valores p.</p>
+<section id="existe-multicolinearidade-e-agora" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="existe-multicolinearidade-e-agora"><span class="header-section-number">4.1</span> Existe multicolinearidade, e agora?</h2>
+<ul>
+<li><p>Se você detectar multicolinearidade, o próximo passo é decidir se você precisa resolvê-la de alguma forma.</p></li>
+<li><p>Dependendo do objetivo da sua análise de regressão, você pode não precisar realmente resolver a multicolinearidade.</p></li>
+<li><p>Para uma orientação sobre este tema com mais detalhes, recomendamos a leitura de um Guia disponível em:</p></li>
+</ul>
+<p><a href="https://www.statology.org/multicollinearity-regression/" class="uri">https://www.statology.org/multicollinearity-regression/</a></p>
+<p>ou</p>
+<p><a href="https://statisticalhorizons.com/multicollinearity/">Quando você pode ignorar a multicolinearidade com segurança?</a></p>
+</section>
+<section id="modelo-sem-_-modelo2---incompleto" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="modelo-sem-_-modelo2---incompleto"><span class="header-section-number">4.2</span> Modelo sem _ (modelo2) - INCOMPLETO</h2>
+</section>
+<section id="modelo-sem-_-modelo3---incompleto" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="modelo-sem-_-modelo3---incompleto"><span class="header-section-number">4.3</span> Modelo sem _ (modelo3) - INCOMPLETO</h2>
+</section>
+</section>
+<section id="métodos-de-seleção-de-modelos---incompleto" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Métodos de seleção de modelos - INCOMPLETO</h1>
+<section id="medida-aic---incompleto" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="medida-aic---incompleto"><span class="header-section-number">5.1</span> Medida AIC - INCOMPLETO</h2>
+</section>
+<section id="comparação-de-modelos-encaixados-anova---incompleto" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="comparação-de-modelos-encaixados-anova---incompleto"><span class="header-section-number">5.2</span> Comparação de modelos encaixados (ANOVA) - INCOMPLETO</h2>
+</section>
+</section>
+<section id="seleção-automática-de-modelo-pelo-aic" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Seleção automática de modelo pelo AIC</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">step</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Start:  AIC=26.82
+Sales ~ CompPrice + Income + Advertising + Population + Price + 
+    ShelveLoc + Age + Education + Urban + US
+
+              Df Sum of Sq     RSS    AIC
+- Population   1      0.33  403.16  25.15
+- Education    1      1.19  404.02  26.00
+- Urban        1      1.23  404.06  26.04
+- US           1      1.57  404.40  26.38
+&lt;none&gt;                      402.83  26.82
+- Income       1     76.16  478.99  94.09
+- Advertising  1    127.14  529.97 134.54
+- Age          1    217.44  620.27 197.48
+- CompPrice    1    519.91  922.74 356.35
+- ShelveLoc    2   1053.20 1456.03 536.80
+- Price        1   1323.23 1726.06 606.85
+
+Step:  AIC=25.15
+Sales ~ CompPrice + Income + Advertising + Price + ShelveLoc + 
+    Age + Education + Urban + US
+
+              Df Sum of Sq     RSS    AIC
+- Urban        1      1.15  404.31  24.29
+- Education    1      1.36  404.52  24.49
+- US           1      1.89  405.05  25.02
+&lt;none&gt;                      403.16  25.15
+- Income       1     75.94  479.10  92.18
+- Advertising  1    145.38  548.54 146.32
+- Age          1    218.52  621.68 196.38
+- CompPrice    1    521.69  924.85 355.27
+- ShelveLoc    2   1053.18 1456.34 534.89
+- Price        1   1323.51 1726.67 605.00
+
+Step:  AIC=24.29
+Sales ~ CompPrice + Income + Advertising + Price + ShelveLoc + 
+    Age + Education + US
+
+              Df Sum of Sq     RSS    AIC
+- Education    1      1.44  405.76  23.72
+- US           1      1.85  406.16  24.12
+&lt;none&gt;                      404.31  24.29
+- Income       1     76.64  480.96  91.73
+- Advertising  1    146.03  550.34 145.63
+- Age          1    217.59  621.91 194.53
+- CompPrice    1    526.17  930.48 355.69
+- ShelveLoc    2   1053.93 1458.25 533.41
+- Price        1   1322.80 1727.11 603.10
+
+Step:  AIC=23.72
+Sales ~ CompPrice + Income + Advertising + Price + ShelveLoc + 
+    Age + US
+
+              Df Sum of Sq     RSS    AIC
+- US           1      1.63  407.39  23.32
+&lt;none&gt;                      405.76  23.72
+- Income       1     77.87  483.62  91.94
+- Advertising  1    145.30  551.06 144.15
+- Age          1    217.97  623.73 193.70
+- CompPrice    1    525.25  931.00 353.92
+- ShelveLoc    2   1056.88 1462.64 532.61
+- Price        1   1322.83 1728.58 601.44
+
+Step:  AIC=23.32
+Sales ~ CompPrice + Income + Advertising + Price + ShelveLoc + 
+    Age
+
+              Df Sum of Sq     RSS    AIC
+&lt;none&gt;                      407.39  23.32
+- Income       1     76.68  484.07  90.30
+- Age          1    219.12  626.51 193.48
+- Advertising  1    234.03  641.42 202.89
+- CompPrice    1    523.83  931.22 352.01
+- ShelveLoc    2   1055.51 1462.90 530.68
+- Price        1   1324.42 1731.81 600.18</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sales ~ CompPrice + Income + Advertising + Price + 
+    ShelveLoc + Age, data = dados)
+
+Coefficients:
+    (Intercept)        CompPrice           Income      Advertising  
+        5.47523          0.09257          0.01578          0.11590  
+          Price    ShelveLocGood  ShelveLocMedium              Age  
+       -0.09532          4.83567          1.95199         -0.04613  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#step(modelo1, direction = "backward")</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#step(modelo1, direction = "forward")</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#step(modelo1, direction = "both")</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Ao observar o ajuste do primeiro modelo com o intuito de prever a variável <code>Sales</code>, tem-se que nem todas as variáveis explicam de forma estatísticamente significativa, exceto <code>Population</code> e <code>Education</code> e com um ajuste indicado pelo Coeficiente de determinação ajustado (Adjusted R-squared:0.5335). ======= # Modelo selecionado (modelo2) - INCOMPLETO</p>
+<section id="análises-dos-pressupostos-e-comentários---incompleto" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="análises-dos-pressupostos-e-comentários---incompleto"><span class="header-section-number">6.1</span> Análises dos pressupostos e Comentários - INCOMPLETO</h2>
+</section>
+</section>
+<section id="interpretações-do-modelo-selecionado---incompleto" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Interpretações do modelo selecionado - INCOMPLETO</h1>
+<section id="coeficientes-padronizados---incompleto" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="coeficientes-padronizados---incompleto"><span class="header-section-number">7.1</span> Coeficientes padronizados - INCOMPLETO</h2>
+</section>
+</section>
+<section id="previsões---incompleto" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Previsões - INCOMPLETO</h1>
+<p><strong>Observação</strong>: - INCOMPLETO</p>
+<section id="intervalo-de-confiança---incompleto" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="intervalo-de-confiança---incompleto"><span class="header-section-number">8.1</span> Intervalo de Confiança - INCOMPLETO</h2>
+</section>
+<section id="intervalo-de-prediçãoprevisão---incompleto" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="intervalo-de-prediçãoprevisão---incompleto"><span class="header-section-number">8.2</span> Intervalo de Predição/Previsão - INCOMPLETO</h2>
+</section>
+<section id="observações---incompleto" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="observações---incompleto"><span class="header-section-number">8.3</span> Observações - INCOMPLETO</h2>
+</section>
+<section id="observações" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="observações"><span class="header-section-number">8.4</span> Observações</h2>
+<blockquote class="blockquote">
+<ol type="1">
+<li>Um <strong>intervalo de predição/previsão</strong> sempre será mais amplo do que um <strong>intervalo de confiança</strong> para os mesmos valores das variáveis independentes.</li>
+</ol>
+</blockquote>
+<blockquote class="blockquote">
+<ol start="2" type="1">
+<li>Você deve <strong>usar</strong> um <strong>intervalo de previsão/predição</strong> quando estiver interessado em previsões individuais específicas, porque um <strong>intervalo de confiança</strong> produzirá um intervalo de valores <strong>muito estreito</strong>, resultando em uma chance maior de que o intervalo <strong>não contenha</strong> o valor verdadeiro.</li>
+</ol>
+</blockquote>
+<blockquote class="blockquote">
+<ol start="3" type="1">
+<li>Sugere-se a leitura do seguinte Guia sobre previsões de valores:</li>
+</ol>
+</blockquote>
+<p><a href="https://www.statology.org/prediction-interval-r/" class="uri">https://www.statology.org/prediction-interval-r/</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt; 4485bec49fa64c80f12c6b2f31987879b291d241</p>
 <p><br>
 </p>
+</section>
+</section>
+<section id="regressão-com-variáveis-qualitativas-dummiesfictíciasindicadoras---incompleto" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Regressão com variáveis Qualitativas (Dummies/Fictícias/Indicadoras) - INCOMPLETO</h1>
+<section id="visualizações-gráficas---incompleto" class="level3" data-number="9.0.1">
+<h3 data-number="9.0.1" class="anchored" data-anchor-id="visualizações-gráficas---incompleto"><span class="header-section-number">9.0.1</span> Visualizações gráficas - INCOMPLETO</h3>
+<p><strong>Interpretações</strong>: - INCOMPLETO</p>
+</section>
+<section id="sobre-os-levels-da-variável-sales---incompleto" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="sobre-os-levels-da-variável-sales---incompleto"><span class="header-section-number">9.1</span> Sobre os “levels” da variável <code>Sales</code> - INCOMPLETO</h2>
+<section id="interpretações---incompleto" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="interpretações---incompleto"><span class="header-section-number">9.1.1</span> Interpretações - INCOMPLETO</h3>
+</section>
+<section id="interpretações---incompleto-1" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="interpretações---incompleto-1"><span class="header-section-number">9.1.2</span> Interpretações - INCOMPLETO</h3>
+</section>
+</section>
+<section id="alterando-a-categoria-de-referência---incompleto" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="alterando-a-categoria-de-referência---incompleto"><span class="header-section-number">9.2</span> Alterando a Categoria de Referência - INCOMPLETO</h2>
+<p><strong>Comentários/Observações</strong> - INCOMPLETO</p>
+<p><strong>Comentários/Observações</strong> - INCOMPLETO</p>
+</section>
+</section>
+<section id="conclusão---incompleto" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Conclusão - INCOMPLETO</h1>
 
 
 </section>

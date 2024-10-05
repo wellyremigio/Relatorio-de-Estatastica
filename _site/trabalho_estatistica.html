@@ -154,7 +154,15 @@ window.Quarto = {
   <li><a href="#sec-GGally" id="toc-sec-GGally" class="nav-link" data-scroll-target="#sec-GGally"><span class="header-section-number">2.1.2</span> Análise de Correlação</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban" id="toc-ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban" class="nav-link" data-scroll-target="#ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban"><span class="header-section-number">3</span> Ajuste do modelo 1 (Sem as vaiáveis <code>CompPrice</code>, <code>US</code> e <code>Urban</code>)</a></li>
+  <li><a href="#modelo-1-com-todas-as-variáveis" id="toc-modelo-1-com-todas-as-variáveis" class="nav-link" data-scroll-target="#modelo-1-com-todas-as-variáveis"><span class="header-section-number">3</span> Modelo 1 (Com todas as variáveis)</a>
+  <ul class="collapse">
+  <li><a href="#sec-modelo2selecionado" id="toc-sec-modelo2selecionado" class="nav-link" data-scroll-target="#sec-modelo2selecionado"><span class="header-section-number">3.1</span> Modelo sem <code>Population</code> (modelo2)</a></li>
+  <li><a href="#modelo-sem-education-modelo3" id="toc-modelo-sem-education-modelo3" class="nav-link" data-scroll-target="#modelo-sem-education-modelo3"><span class="header-section-number">3.2</span> Modelo sem <code>Education</code> (modelo3)</a></li>
+  <li><a href="#modelo-sem-urban-modelo4" id="toc-modelo-sem-urban-modelo4" class="nav-link" data-scroll-target="#modelo-sem-urban-modelo4"><span class="header-section-number">3.3</span> Modelo sem <code>Urban</code> (modelo4)</a></li>
+  <li><a href="#modelo-sem-us-modelo5" id="toc-modelo-sem-us-modelo5" class="nav-link" data-scroll-target="#modelo-sem-us-modelo5"><span class="header-section-number">3.4</span> Modelo sem <code>US</code> (modelo5)</a></li>
+  <li><a href="#modelo-sem-population-education-urban-e-us-modelo6" id="toc-modelo-sem-population-education-urban-e-us-modelo6" class="nav-link" data-scroll-target="#modelo-sem-population-education-urban-e-us-modelo6"><span class="header-section-number">3.5</span> Modelo sem <code>Population</code>, <code>Education</code>, <code>Urban</code> e <code>US</code> (modelo6)</a></li>
+  </ul></li>
+  <li><a href="#métodos-de-seleção-de-modelos" id="toc-métodos-de-seleção-de-modelos" class="nav-link" data-scroll-target="#métodos-de-seleção-de-modelos"><span class="header-section-number">4</span> Métodos de seleção de modelos</a></li>
   </ul>
 </nav>
     </div>
@@ -180,7 +188,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">4 de outubro de 2024</p>
+      <p class="date">5 de outubro de 2024</p>
     </div>
   </div>
   
@@ -478,7 +486,7 @@ window.Quarto = {
 <pre><code>package 'GGally' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\Notebook\AppData\Local\Temp\Rtmpiwfcu1\downloaded_packages</code></pre>
+    C:\Users\Notebook\AppData\Local\Temp\RtmpITTGwA\downloaded_packages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)<span class="co"># Pacote para função ggpairs</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -486,17 +494,19 @@ The downloaded binary packages are in
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">### Multicolinearidade: r &gt; 0.9 (ou 0.8)</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>graf1 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>US), </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),                      </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,                              </span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))    </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>graf1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico com a variável qualitativa US</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>graf1 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>US), </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),                      </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,                              </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))    </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>graf1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -504,8 +514,48 @@ The downloaded binary packages are in
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Salvando o gráfico em .jpeg</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Grafico_dispersao_carseats.jpeg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico com a variável qualitativa Urban</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>graf2 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>Urban), </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),                      </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,                              </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))    </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>graf2</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_estatistica_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico com a variável qualitativa ShelveLoc</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>graf3 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>ShelveLoc), </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),                      </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,                              </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))    </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>graf3</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_estatistica_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Salvando o gráfico em .jpeg</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Grafico_dispersao_carseats.jpeg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="comentários-1" class="level4" data-number="2.1.2.1">
 <h4 data-number="2.1.2.1" class="anchored" data-anchor-id="comentários-1"><span class="header-section-number">2.1.2.1</span> Comentários</h4>
@@ -519,9 +569,7 @@ The downloaded binary packages are in
 <ol type="i">
 <li><p>não apresenta correlação linear significante com a variável <code>CompPrice</code> (r= 0,064, p &gt; 0.10);</p></li>
 <li><p>apresenta correlação linear significante com a variável <code>Income</code> (r= 0.152, p &lt; 0.001);</p></li>
-</ol>
-<p>iii.apresenta correlação linear significante com a variável <code>Advertising</code> (r= 0.270, p &lt; 0.001);</p>
-<ol start="4" type="i">
+<li><p>apresenta correlação linear significante com a variável <code>Advertising</code> (r= 0.270, p &lt; 0.001);</p></li>
 <li><p>não apresenta correlação linear significante com a variável <code>Population</code> (r= 0.050, p &gt; 0.10);</p></li>
 <li><p>apresenta correlação linear significante com a variável <code>Price</code> (r= -0.445, p &lt; 0.001);</p></li>
 <li><p>apresenta correlação linear significante com a variável <code>Age</code> (r= -0.232, p &lt; 0.001);</p></li>
@@ -538,63 +586,281 @@ The downloaded binary packages are in
 <blockquote class="blockquote">
 <p><strong>VIF &gt; 10</strong> indica <strong>problema de multicolinearidade</strong>.</p>
 </blockquote>
-<p>&nbsp;</p>
-<p>Veja abaixo <strong>como obter o vif</strong> usando o <em>R</em>, desconsiderando a variável <code>Sales</code> no modelo inicial.</p>
-<p>O problema da multicolinearidade não pode ser maior que 0,8/0,9</p>
+<p>&nbsp; Veja abaixo <strong>como obter o vif</strong> usando o <em>R</em>, desconsiderando as variáveis ShelveLoc, US e Urban.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sales <span class="sc">~</span> . <span class="sc">-</span> ShelveLoc <span class="sc">-</span> US <span class="sc">-</span> Urban, <span class="at">data =</span> dados)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car) </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo1 &lt;- lm(Sales ~ . - ShelveLoc - US - Urban, data = dados)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sales <span class="sc">~</span> CompPrice <span class="sc">+</span> Income <span class="sc">+</span> Advertising <span class="sc">+</span> Population <span class="sc">+</span> Price <span class="sc">+</span> ShelveLoc <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Urban <span class="sc">+</span> US, <span class="at">data =</span> dados)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car) </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  CompPrice      Income Advertising  Population       Price         Age 
-   1.549720    1.014598    1.084521    1.101597    1.534323    1.015975 
-  Education 
-   1.014991 </code></pre>
+<pre><code>                GVIF Df GVIF^(1/(2*Df))
+CompPrice   1.554618  1        1.246843
+Income      1.024731  1        1.012290
+Advertising 2.103136  1        1.450219
+Population  1.145534  1        1.070296
+Price       1.537068  1        1.239785
+ShelveLoc   1.033891  2        1.008367
+Age         1.021051  1        1.010471
+Education   1.026342  1        1.013086
+Urban       1.022705  1        1.011289
+US          1.980720  1        1.407380</code></pre>
 </div>
 </div>
-<p>Como podemos ver, são as variáveis <code>x</code> e <code>y</code> que apresentam vif maior que 10 e são exatamente elas que também apresentaram forte correlação positiva. Fiquemos atentos ao resultados da regressão associados a estas duas variáveis preditoras que dão indício para o posterior problema de multicolinearidade.</p>
-<p><br>
+<p>Como podemos ver, nenhuma das variáveis tem o VIF &gt; 10, logo isso indica que não há um problema de multicolinearidade.<br>
 </p>
 </section>
 </section>
 </section>
 </section>
-<section id="ajuste-do-modelo-1-sem-as-vaiáveis-compprice-us-e-urban" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Ajuste do modelo 1 (Sem as vaiáveis <code>CompPrice</code>, <code>US</code> e <code>Urban</code>)</h1>
+<section id="modelo-1-com-todas-as-variáveis" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Modelo 1 (Com todas as variáveis)</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = Sales ~ . - ShelveLoc - US - Urban, data = dados)
+lm(formula = Sales ~ CompPrice + Income + Advertising + Population + 
+    Price + ShelveLoc + Age + Education + Urban + US, data = dados)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--5.0598 -1.3515 -0.1739  1.1331  4.8304 
+-2.8692 -0.6908  0.0211  0.6636  3.4115 
 
 Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  7.7076934  1.1176260   6.896 2.15e-11 ***
-CompPrice    0.0939149  0.0078395  11.980  &lt; 2e-16 ***
-Income       0.0128717  0.0034757   3.703 0.000243 ***
-Advertising  0.1308637  0.0151219   8.654  &lt; 2e-16 ***
-Population  -0.0001239  0.0006877  -0.180 0.857092    
-Price       -0.0925226  0.0050521 -18.314  &lt; 2e-16 ***
-Age         -0.0449743  0.0060083  -7.485 4.75e-13 ***
-Education   -0.0399844  0.0371257  -1.077 0.282142    
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      5.6606231  0.6034487   9.380  &lt; 2e-16 ***
+CompPrice        0.0928153  0.0041477  22.378  &lt; 2e-16 ***
+Income           0.0158028  0.0018451   8.565 2.58e-16 ***
+Advertising      0.1230951  0.0111237  11.066  &lt; 2e-16 ***
+Population       0.0002079  0.0003705   0.561    0.575    
+Price           -0.0953579  0.0026711 -35.700  &lt; 2e-16 ***
+ShelveLocGood    4.8501827  0.1531100  31.678  &lt; 2e-16 ***
+ShelveLocMedium  1.9567148  0.1261056  15.516  &lt; 2e-16 ***
+Age             -0.0460452  0.0031817 -14.472  &lt; 2e-16 ***
+Education       -0.0211018  0.0197205  -1.070    0.285    
+UrbanYes         0.1228864  0.1129761   1.088    0.277    
+USYes           -0.1840928  0.1498423  -1.229    0.220    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 1.929 on 392 degrees of freedom
-Multiple R-squared:  0.5417,    Adjusted R-squared:  0.5335 
-F-statistic: 66.18 on 7 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1.019 on 388 degrees of freedom
+Multiple R-squared:  0.8734,    Adjusted R-squared:  0.8698 
+F-statistic: 243.4 on 11 and 388 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Ao observar o ajuste do primeiro modelo com o intuito de prever a variável <code>Sales</code>, tem-se que nem todas as variáveis explicam de forma estatísticamente significativa, exceto <code>Population</code> e <code>Education</code> e com um ajuste indicado pelo Coeficiente de determinação ajustado (Adjusted R-squared:0.5335).</p>
+<p>Ao observar o primeiro modelo com o intuito de prever a variável <code>Sales</code>, tem-se que aproximadamente 87,34% (Multiple R-squared: 0,8734) da variação nas vendas é explicada pelas variáveis independentes, o que é um bom ajuste. Um valor de 86,98% (Adjusted R-squared: 0,8698) confirma que, mesmo ajustando para o número de variáveis no modelo, o ajuste ainda é forte. Isso é importante porque evita o viés de um R² inflado quando são adicionados mais preditores. O valor de F elevado e o p-valor muito baixo (&lt; 2.2e-16) indicam que o modelo como um todo é estatisticamente significativo, ou seja, pelo menos uma das variáveis independentes está associada às vendas.</p>
+<p>O modelo de regressão parece fornecer uma boa explicação para as vendas com base nas variáveis incluídas, especialmente o preço (<code>Price</code>), o preço dos concorrentes (<code>CompPrice</code>), a renda (<code>Income</code>), a publicidade (<code>Advertising</code>) e a idade (<code>Age</code>). Contudo, <code>Population</code>, <code>Education</code>, <code>Urban</code> e <code>US</code> não mostraram-se significativas.<br>
+</p>
+<section id="sec-modelo2selecionado" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-modelo2selecionado"><span class="header-section-number">3.1</span> Modelo sem <code>Population</code> (modelo2)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo1, <span class="sc">~</span> . <span class="sc">-</span> Population)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sales ~ CompPrice + Income + Advertising + Price + 
+    ShelveLoc + Age + Education + Urban + US, data = dados)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.8799 -0.7015  0.0088  0.6611  3.4268 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      5.761899   0.575319  10.015  &lt; 2e-16 ***
+CompPrice        0.092609   0.004128  22.436  &lt; 2e-16 ***
+Income           0.015774   0.001843   8.560 2.65e-16 ***
+Advertising      0.125044   0.010558  11.844  &lt; 2e-16 ***
+Price           -0.095302   0.002667 -35.736  &lt; 2e-16 ***
+ShelveLocGood    4.846736   0.152852  31.709  &lt; 2e-16 ***
+ShelveLocMedium  1.952145   0.125732  15.526  &lt; 2e-16 ***
+Age             -0.046119   0.003176 -14.520  &lt; 2e-16 ***
+Education       -0.022411   0.019565  -1.145    0.253    
+UrbanYes         0.118853   0.112648   1.055    0.292    
+USYes           -0.199075   0.147315  -1.351    0.177    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.018 on 389 degrees of freedom
+Multiple R-squared:  0.8733,    Adjusted R-squared:  0.8701 
+F-statistic: 268.2 on 10 and 389 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Observa-se que para este modelo ajustado ocorreu um aumento no valor da adequação de ajuste do modelo para 87,01% (Adjusted R-squared: 0.8701).<br>
+</p>
+</blockquote>
+</section>
+<section id="modelo-sem-education-modelo3" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="modelo-sem-education-modelo3"><span class="header-section-number">3.2</span> Modelo sem <code>Education</code> (modelo3)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo1, <span class="sc">~</span> . <span class="sc">-</span> Education)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo3)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sales ~ CompPrice + Income + Advertising + Population + 
+    Price + ShelveLoc + Age + Urban + US, data = dados)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.7878 -0.7092  0.0175  0.6789  3.3754 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      5.3468659  0.5275196  10.136   &lt;2e-16 ***
+CompPrice        0.0927626  0.0041481  22.362   &lt;2e-16 ***
+Income           0.0159032  0.0018431   8.629   &lt;2e-16 ***
+Advertising      0.1223177  0.0111020  11.018   &lt;2e-16 ***
+Population       0.0002548  0.0003679   0.692    0.489    
+Price           -0.0953725  0.0026715 -35.699   &lt;2e-16 ***
+ShelveLocGood    4.8557953  0.1530486  31.727   &lt;2e-16 ***
+ShelveLocMedium  1.9597110  0.1260980  15.541   &lt;2e-16 ***
+Age             -0.0460665  0.0031822 -14.476   &lt;2e-16 ***
+UrbanYes         0.1276924  0.1129078   1.131    0.259    
+USYes           -0.1693875  0.1492386  -1.135    0.257    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.019 on 389 degrees of freedom
+Multiple R-squared:  0.873, Adjusted R-squared:  0.8698 
+F-statistic: 267.5 on 10 and 389 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo continuou igual ao modelo 1 com 86,98% (Adjusted R-squared: 0.8698).</p>
+</blockquote>
+</section>
+<section id="modelo-sem-urban-modelo4" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="modelo-sem-urban-modelo4"><span class="header-section-number">3.3</span> Modelo sem <code>Urban</code> (modelo4)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>modelo4 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo1, <span class="sc">~</span> . <span class="sc">-</span> Urban)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo4)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sales ~ CompPrice + Income + Advertising + Population + 
+    Price + ShelveLoc + Age + Education + US, data = dados)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.8498 -0.6992  0.0300  0.6436  3.4616 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      5.7267269  0.6005220   9.536   &lt;2e-16 ***
+CompPrice        0.0930440  0.0041433  22.457   &lt;2e-16 ***
+Income           0.0158656  0.0018447   8.601   &lt;2e-16 ***
+Advertising      0.1235923  0.0111169  11.118   &lt;2e-16 ***
+Population       0.0001822  0.0003698   0.493    0.622    
+Price           -0.0953182  0.0026715 -35.680   &lt;2e-16 ***
+ShelveLocGood    4.8365318  0.1526307  31.688   &lt;2e-16 ***
+ShelveLocMedium  1.9458754  0.1257409  15.475   &lt;2e-16 ***
+Age             -0.0459156  0.0031802 -14.438   &lt;2e-16 ***
+Education       -0.0219546  0.0197095  -1.114    0.266    
+USYes           -0.1836133  0.1498769  -1.225    0.221    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.019 on 389 degrees of freedom
+Multiple R-squared:  0.873, Adjusted R-squared:  0.8698 
+F-statistic: 267.5 on 10 and 389 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo continuou igual ao modelo 1 com 86,98% (Adjusted R-squared: 0.8698).</p>
+</blockquote>
+</section>
+<section id="modelo-sem-us-modelo5" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="modelo-sem-us-modelo5"><span class="header-section-number">3.4</span> Modelo sem <code>US</code> (modelo5)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>modelo5 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo1, <span class="sc">~</span> . <span class="sc">-</span> US)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo5)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sales ~ CompPrice + Income + Advertising + Population + 
+    Price + ShelveLoc + Age + Education + Urban, data = dados)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.8596 -0.7088  0.0363  0.6693  3.2979 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      5.5811103  0.6003608   9.296  &lt; 2e-16 ***
+CompPrice        0.0927157  0.0041496  22.343  &lt; 2e-16 ***
+Income           0.0156692  0.0018431   8.501 4.06e-16 ***
+Advertising      0.1136245  0.0080249  14.159  &lt; 2e-16 ***
+Population       0.0002890  0.0003648   0.792    0.429    
+Price           -0.0954252  0.0026723 -35.710  &lt; 2e-16 ***
+ShelveLocGood    4.8486758  0.1532053  31.648  &lt; 2e-16 ***
+ShelveLocMedium  1.9661745  0.1259527  15.610  &lt; 2e-16 ***
+Age             -0.0461184  0.0031832 -14.488  &lt; 2e-16 ***
+Education       -0.0188798  0.0196502  -0.961    0.337    
+UrbanYes         0.1224780  0.1130495   1.083    0.279    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.02 on 389 degrees of freedom
+Multiple R-squared:  0.8729,    Adjusted R-squared:  0.8697 
+F-statistic: 267.2 on 10 and 389 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697).</p>
+</blockquote>
+</section>
+<section id="modelo-sem-population-education-urban-e-us-modelo6" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="modelo-sem-population-education-urban-e-us-modelo6"><span class="header-section-number">3.5</span> Modelo sem <code>Population</code>, <code>Education</code>, <code>Urban</code> e <code>US</code> (modelo6)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>modelo6 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo1, <span class="sc">~</span> . <span class="sc">-</span>Population <span class="sc">-</span> Education <span class="sc">-</span> Urban <span class="sc">-</span> US)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo6)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sales ~ CompPrice + Income + Advertising + Price + 
+    ShelveLoc + Age, data = dados)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.7728 -0.6954  0.0282  0.6732  3.3292 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      5.475226   0.505005   10.84   &lt;2e-16 ***
+CompPrice        0.092571   0.004123   22.45   &lt;2e-16 ***
+Income           0.015785   0.001838    8.59   &lt;2e-16 ***
+Advertising      0.115903   0.007724   15.01   &lt;2e-16 ***
+Price           -0.095319   0.002670  -35.70   &lt;2e-16 ***
+ShelveLocGood    4.835675   0.152499   31.71   &lt;2e-16 ***
+ShelveLocMedium  1.951993   0.125375   15.57   &lt;2e-16 ***
+Age             -0.046128   0.003177  -14.52   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.019 on 392 degrees of freedom
+Multiple R-squared:  0.872, Adjusted R-squared:  0.8697 
+F-statistic: 381.4 on 7 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697).</p>
+</blockquote>
 <p><br>
 </p>
+</section>
+</section>
+<section id="métodos-de-seleção-de-modelos" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Métodos de seleção de modelos</h1>
 
 
 </section>
