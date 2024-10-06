@@ -1,6 +1,6 @@
 ---
 title: "Regressão Linear Múltipla"
-author: "Larysa Mendes, Vitória Maria, Welly Remígio" 
+author: "Larysa Mendes de Almeida, Vitória Maria do Nascimento, Welly Remígio Bezerra"
 format: html
 number-sections: true
 toc: true
@@ -26,8 +26,8 @@ options(repos = c(CRAN = "https://cloud.r-project.org/"))
 # Introdução
 
 Este relatório tem por objetivo ajustar um modelo de regressão linear múltiplo com o intuito de investigar a influência de determinadas características associadas a vendas de cadeirinhas de carro para crianças e diversos fatores que podem influenciar essas vendas.
-dasdasd
-Neste contexto a regressão será realizada sobre base de dados `Carseats`, que trata das vendas de cadeirinhas de carro para crianças (Child Car Seats) em diferentes locais. Essa base está na biblioteca ISLR (An Introduction to Statistical Learning with Applications in R) que é um pacote em R que acompanha o famoso livro "An Introduction to Statistical Learning" (ISLR). Ela contém vários conjuntos de dados usados para demonstrar técnicas de aprendizado estatístico e machine learning. Essa base de dados contém onze variáveis, sendo três destas quanlitativas, as demais são medidas quantitativas.
+
+Neste contexto a regressão será realizada sobre base de dados `Carseats`, que trata das vendas de cadeirinhas de carro para crianças (Child Car Seats) em diferentes locais. Essa base está na biblioteca ISLR (An Introduction to Statistical Learning with Applications in R) que é um pacote em R que acompanha o famoso livro "An Introduction to Statistical Learning" (ISLR). Ela contém vários conjuntos de dados usados para demonstrar técnicas de aprendizado estatístico e machine learning. Esta base de dados contém onze variáveis, sendo três qualitativas e as demais quantitativas.
 
 # Os dados 
 
@@ -37,10 +37,8 @@ Neste contexto a regressão será realizada sobre base de dados `Carseats`, que 
 install.packages("ISLR", quiet=TRUE) #instalando pacote
 library(ISLR) #chamando pacote
 
-setwd("C:\\Users\\Notebook\\Documents\\Relatorio_Estatistica")
-write.table(Carseats , file="nome_do_arquivo.csv", sep=";", dec=",") #criando arquivo .csv no local de 
-#help("Carseats") #descrição das variáveis
-#glimpse(Carseats)
+write.table(Carseats , file="dados_carseats.csv", sep=";", dec=",") #criando arquivo .csv no local de 
+glimpse(Carseats)
 
 ```
 
@@ -49,7 +47,6 @@ Número de observações: 400
 Variável Resposta:
 - `Sales`: Vendas de cadeirinhas de carro em diferentes locais. (Milhares de unidades)
 
-  
 Variáveis Explicativas:
 - `CompPrice`: Preço da cadeirinha na loja concorrente. (em dólares).  
 - `Income`: Renda média dos consumidores naquela região. (em milhares de dólares).  
@@ -75,9 +72,8 @@ skim(dados)
 ```
 
 ### Comentários:
-De acordo com a tabela é possível observar que não há ausência de dados.
-# INCOMPLETO
-
+De acordo com a tabela é possível observar que não há ausência de dados. O conjunto contém tanto as variáveis numéricas (como `Sales`, `CompPrice`, `Income`, `Advertising`, `Population`, `Price`, `Age`) quanto as categóricas (como `ShelveLoc`, `Urban` e `US`). 
+As variáveis numéricas foram descritas por meio de estatísticas como média, mediana, desvio padrão e percentis, fornecendo uma visão clara sobre sua distribuição. 
 
 ### Análise de Correlação {#sec-GGally}
 ```{r}
@@ -85,9 +81,8 @@ install.packages("GGally", quite=TRUE)
 library(GGally)# Pacote para função ggpairs
 library(ggplot2)
 
-
 ### Multicolinearidade: r > 0.9 (ou 0.8)
-#Gráfico com a variável qualitativa US
+# Gráfico com a variável qualitativa US
 
 graf1 <- ggpairs(dados, 
                  columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
@@ -101,8 +96,7 @@ graf1 <- ggpairs(dados,
 
 graf1
 
-
-#Gráfico com a variável qualitativa Urban
+# Gráfico com a variável qualitativa Urban
 
 graf2 <- ggpairs(dados, 
                  columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
@@ -116,8 +110,7 @@ graf2 <- ggpairs(dados,
 
 graf2
 
-
-#Gráfico com a variável qualitativa ShelveLoc
+# Gráfico com a variável qualitativa ShelveLoc
 
 graf3 <- ggpairs(dados, 
                  columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
@@ -146,24 +139,21 @@ Dito isto, é possível observar que:
 
 1)  A variável dependente `Sales`:
 
-<!-- -->
+      i.  não apresenta correlação linear significante com a variável `CompPrice` (r= 0,064, p \> 0.10);
 
-i.  não apresenta correlação linear significante com a variável `CompPrice` (r= 0,064, p \> 0.10);
+      ii. apresenta correlação linear significante com a variável `Income` (r= 0.152, p \< 0.001);
 
-ii. apresenta correlação linear significante com a variável `Income` (r= 0.152, p \< 0.001);
+      iii. apresenta correlação linear significante com a variável `Advertising` (r= 0.270, p \< 0.001);
 
-iii. apresenta correlação linear significante com a variável `Advertising` (r= 0.270, p \< 0.001);
+      iv. não apresenta correlação linear significante com a variável `Population` (r= 0.050, p \> 0.10);
 
-iv. não apresenta correlação linear significante com a variável `Population` (r= 0.050, p \> 0.10);
+      v. apresenta correlação linear significante com a variável `Price` (r= -0.445, p \< 0.001);
 
-v. apresenta correlação linear significante com a variável `Price` (r= -0.445, p \< 0.001);
+      vi. apresenta correlação linear significante com a variável `Age` (r= -0.232, p \< 0.001);
 
-vi. apresenta correlação linear significante com a variável `Age` (r= -0.232, p \< 0.001);
+      vii. não apresenta correlação linear significante com a variável `Education` (r= -0.052,  p \> 0.10);
 
-vii. não apresenta correlação linear significante com a variável `Education` (r= -0.052,  p \> 0.10);
-
-<!-- -->
-
+#### Multicolinearidade - Analisando o VIF - Variance Inflation Factor
 
 Uma maneira de identificar a multicolinearidade é através do **Fator de Inflação da Variância (VIF)**.
 
@@ -177,32 +167,28 @@ O **VIF é calculado** para cada preditor fazendo uma regressão linear desse pr
 
 Veja abaixo **como obter o vif** usando o *R*, desconsiderando as variáveis ShelveLoc, US e Urban.
 
-
 ```{r}
-
-
-#modelo1 <- lm(Sales ~ . - ShelveLoc - US - Urban, data = dados)
+# Ajuste do modelo de regressão linear múltiplo
 modelo1 <- lm(Sales ~ CompPrice + Income + Advertising + Population + Price + ShelveLoc + Age + Education + Urban + US, data = dados)
 
+# Uma opção para obter o: Variance Inflation Factor (VIF)
 library(car) 
 
 vif(modelo1)
 ```
-Como podemos ver, nenhuma das variáveis tem o VIF > 10, logo isso indica que não há um problema de multicolinearidade. 
-
+Como podemos ver, nenhuma das variáveis tem o VIF > 10, logo, não há multicolinearidade. 
 
 # Modelo 1 (Com todas as variáveis)
 
 ```{r}
 summary(modelo1)
-
 ```
 
 Ao observar o primeiro modelo com o intuito de prever a variável `Sales`, tem-se que aproximadamente 87,34% (Multiple R-squared: 0,8734) da variação nas vendas é explicada pelas variáveis independentes, o que é um bom ajuste. Um valor de 86,98% (Adjusted R-squared: 0,8698) confirma que, mesmo ajustando para o número de variáveis no modelo, o ajuste ainda é forte. Isso é importante porque evita o viés de um R² inflado quando são adicionados mais preditores. 
-O valor de F elevado e o p-valor muito baixo (< 2.2e-16) indicam que o modelo como um todo é estatisticamente significativo, ou seja, pelo menos uma das variáveis independentes está associada às vendas. 
 
-O modelo de regressão parece fornecer uma boa explicação para as vendas com base nas variáveis incluídas, especialmente o preço (`Price`), o preço dos concorrentes (`CompPrice`), a renda (`Income`), a publicidade (`Advertising`) e a idade (`Age`). Contudo, `Population`, `Education`, `Urban` e `US` não mostraram-se significativas.
+O valor de F elevado e o p-valor muito baixo (< 2.2e-16) indicam que o modelo, como um todo, é estatisticamente significativo, ou seja, pelo menos uma das variáveis independentes está associada às vendas. 
 
+O modelo de regressão parece fornecer uma boa explicação para as vendas com base nas variáveis incluídas, especialmente o preço (`Price`), o preço dos concorrentes (`CompPrice`), a renda (`Income`), a publicidade (`Advertising`) e a idade (`Age`). Contudo, `Population`, `Education`, `Urban` e `US` não se mostraram significativas.
 
 ## Modelo sem `Population` (modelo2) {#sec-modelo2selecionado}
 
@@ -210,12 +196,9 @@ O modelo de regressão parece fornecer uma boa explicação para as vendas com b
 modelo2 <- update(modelo1, ~ . - Population)
 
 summary(modelo2)
-
 ```
 
-
-> Observa-se que para este modelo ajustado ocorreu um aumento no valor da adequação de ajuste do modelo para 87,01% (Adjusted R-squared: 0.8701).
-
+> Observa-se que para este modelo ajustado ocorreu um aumento no valor da adequação de ajuste do modelo para 87,01% (Adjusted R-squared: 0.8701). Esse aumento indica que o modelo, sem a variável `Population`, consegue explicar uma maior proporção da variação total das vendas, tornando-o mais eficiente.
 
 ## Modelo sem `Education` (modelo3)
 
@@ -223,10 +206,8 @@ summary(modelo2)
 modelo3 <- update(modelo1, ~ . - Education)
 
 summary(modelo3)
-
 ```
-> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo continuou igual ao modelo 1 com 86,98% (Adjusted R-squared: 0.8698).
-
+> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo continuou igual ao modelo 1 com 86,98% (Adjusted R-squared: 0.8698). Isso indica que a variável `Education` não estava contribuindo significativamente para a explicação das vendas e, portanto, sua remoção não afetou o desempenho do modelo. 
 
 ## Modelo sem `Urban` (modelo4)
 
@@ -234,10 +215,8 @@ summary(modelo3)
 modelo4 <- update(modelo1, ~ . - Urban)
 
 summary(modelo4)
-
 ```
-> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo continuou igual ao modelo 1 com 86,98% (Adjusted R-squared: 0.8698).
-
+> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo continuou igual ao modelo 1 com 86,98% (Adjusted R-squared: 0.8698). Isso indica que a variável `Urban` não estava contribuindo significativamente para a explicação das vendas e, portanto, sua remoção não afetou o desempenho do modelo. 
 
 ## Modelo sem `US` (modelo5)
 
@@ -245,9 +224,8 @@ summary(modelo4)
 modelo5 <- update(modelo1, ~ . - US)
 
 summary(modelo5)
-
 ```
-> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697).
+> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697). Isso indica que a variável `US` tem uma influência pequena, mas presente, na explicação das vendas.
 
 
 ## Modelo sem `Population`, `Education`, `Urban` e `US` (modelo6)
@@ -256,11 +234,8 @@ summary(modelo5)
 modelo6 <- update(modelo1, ~ . -Population - Education - Urban - US)
 
 summary(modelo6)
-
 ```
-> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697).
-
-
+> Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697).A exclusão das variáveis `Population`, `Education`, `Urban` e `US` resultou em um modelo mais simples, com uma redução mínima na capacidade de explicar as vendas. 
 
 # Métodos de seleção de modelos
 
@@ -275,36 +250,31 @@ AIC(modelo5)
 AIC(modelo6)
 ```
 
-> Comparando-se os seis modelos verificou-se que o modelo com menor valor AIC é o modelo 6, e portanto é o preferível. 
+> Comparando-se os seis modelos verificou-se que o modelo com menor valor AIC é o modelo 6 e, portanto, o preferível. 
 
 ## Comparação de modelos encaixados (ANOVA)
 
 ```{r}
 anova(modelo6, modelo1)
-
 ```
 
-O teste ANOVA indica que a diferença entre os dois modelos não é estatisticamente significativa (p = 0.358), sugerindo que o modelo mais simples (modelo6), sem essas variáveis adicionais, é preferível por ser mais mais simples e com a mesma capacidade de ajuste.
+O teste ANOVA indica que a diferença entre os dois modelos não é estatisticamente significativa (p = 0.358), sugerindo que o modelo mais simples (modelo6), sem essas variáveis adicionais, é preferível por ser mais mais simples e possuir a mesma capacidade de ajuste.
 Assim, o modelo 6 é o mais adequado, pois não há ganho significativo ao adicionar as variáveis extras, e isso ajuda a evitar a complexidade desnecessária.
-
 
 # Modelo selecionado (modelo6)
 
 ```{r}
 plot(modelo6)
-
 ```
 
-
 ## Análises dos pressupostos e Comentários
-Pode-se observar no primeiro gráfico Residuals vc Fitted, que o modelo apresenta uma boa linearidade, já que a linha vermelha indica uma relação linear quando está próxima da linha cinza.
+Pode-se observar no primeiro gráfico _Residuals vs Fitted_ que o modelo apresenta uma boa linearidade, já que a linha vermelha indica uma relação linear quando está próxima da linha cinza.
 
-No gráfico Q-Q Residuals pode-se notar que os erros tem uma distribuição aproximadamente normal já que os pontos estão próximos a linha pontilhada.
+No gráfico _Q-Q Residuals_ pode-se notar que os erros têm uma distribuição aproximadamente normal, já que os pontos estão próximos à linha pontilhada.
 
-No gráfico do Scale-Location é possível observar que a variância dos resíduos que é constante ao longo dos valores ajustados, o que indica que a suposição de homocedasticidade foi atendida.
+No gráfico do _Scale-Location_ é possível observar que a variância dos resíduos é constante ao longo dos valores ajustados, o que indica que a suposição de homocedasticidade foi atendida.
 
-No gráfico do Residuals vs Leverage os outliers identificados foram os pontos 248 e 358, com resíduos padronizados significativos, indicando que eles podem estar influenciando o ajuste do modelo. O ponto 357 também merece atenção, mas não é tão extremo quanto os outros.
-
+No gráfico do _Residuals vs Leverage_ os outliers identificados foram os pontos 248 e 358, com resíduos padronizados significativos, indicando que eles podem estar influenciando o ajuste do modelo. O ponto 357 também merece atenção, mas não é tão extremo quanto os outros.
 
 # Interpretações do modelo selecionado
 
@@ -314,26 +284,30 @@ library(report)
 report(modelo6)
 ```
 
-Fizemos o ajuste de um modelo linear (estimado usando OLS) para prever Vendas com CompPrice, Renda, Publicidade, Preço, Localização da Prateleira e Idade (fórmula: Vendas ~ CompPrice + Renda + Publicidade + Preço + Localização da Prateleira + Idade). O modelo explica uma proporção estatisticamente significativa e substancial de variância (R² = 0,87, F(7, 392) = 381,44, p < 0,001, R² ajustado = 0,87). O intercepto do modelo, correspondente a CompPrice = 0, Renda = 0, Publicidade = 0, Preço = 0, Localização da Prateleira = Ruim e Idade = 0, é de 5,48 (IC 95% [4,48, 6,47], t(392) = 10,84, p < 0,001). Dentro deste modelo:
+Fizemos o ajuste de um modelo linear (estimado usando OLS) para prever `Sales` com `CompPrice`, `Income`, `Advertising`, `Price`, `ShelveLoc` e `Age` (fórmula: Sales ~ CompPrice + Income + Advertising + Price + ShelveLoc + Age). O modelo explica uma proporção estatisticamente significativa e substancial de variância (R² = 0,87, F(7, 392) = 381,44, p < 0,001, R² ajustado = 0,87). O intercepto do modelo, correspondente a `CompPrice` = 0, `Income` = 0, `Advertising` = 0, `Price` = 0, `ShelveLoc` = Bad e `Age` = 0, é de 5,48 (IC 95% [4,48, 6,47], t(392) = 10,84, p < 0,001). Dentro deste modelo:
 
-<!-- -->
-- O efeito de CompPrice é estatisticamente significativo e positivo (beta = 0,09, IC 95% [0,08, 0,10], t(392) = 22,45, p < 0,001; beta padrão = 0,50, IC 95% [0,46, 0,55])
-- O efeito de Renda é estatisticamente significativo e positivo (beta = 0,02, IC 95% [0,01, 0,02], t(392) = 8,59, p < 0,001; beta padrão = 0,16, IC 95% [0,12, 0,19])
-- O efeito de Publicidade é estatisticamente significativo e positivo (beta = 0,12, IC 95% [0,10, 0,13], t(392) = 15,01, p < 0,001; beta padrão = 0,27, IC 95% [0,24, 0,31])
-- O efeito de Preço é estatisticamente significativo e negativo (beta = -0,10, IC 95% [-0,10, -0,09], t(392) = -35,70, p < 0,001; beta padrão = -0,80, IC 95% [-0,84, -0,76])
-- O efeito de Localização da Prateleira [Boa] é estatisticamente significativo e positivo (beta = 4,84, IC 95% [4,54, 5,14], t(392) = 31,71, p < 0,001; beta padrão = 1,71, IC 95% [1,61, 1,82])
-- O efeito de Localização da Prateleira [Média] é estatisticamente significativo e positivo (beta = 1,95, IC 95% [1,71, 2,20], t(392) = 15,57, p < 0,001; beta padrão = 0,69, IC 95% [0,60, 0,78])
-- O efeito de Idade é estatisticamente significativo e negativo (beta = -0,05, IC 95% [-0,05, -0,04], t(392) = -14,52, p < 0,001; beta padrão = -0,26, IC 95% [-0,30, -0,23])
+### Relato em português:
+
+- O efeito de `CompPrice` é estatisticamente significativo e positivo (beta = 0,09, IC 95% [0,08, 0,10], t(392) = 22,45, p < 0,001; Std. beta = 0,50, IC 95% [0,46, 0,55])
+
+- O efeito de `Renda` é estatisticamente significativo e positivo (beta = 0,02, IC 95% [0,01, 0,02], t(392) = 8,59, p < 0,001; Std. beta = 0,16, IC 95% [0,12, 0,19])
+
+- O efeito de `Publicidade` é estatisticamente significativo e positivo (beta = 0,12, IC 95% [0,10, 0,13], t(392) = 15,01, p < 0,001; Std. beta = 0,27, IC 95% [0,24, 0,31])
+
+- O efeito de `Preço` é estatisticamente significativo e negativo (beta = -0,10, IC 95% [-0,10, -0,09], t(392) = -35,70, p < 0,001; Std. beta = -0,80, IC 95% [-0,84, -0,76])
+
+- O efeito de `Localização da Prateleira [Boa]` é estatisticamente significativo e positivo (beta = 4,84, IC 95% [4,54, 5,14], t(392) = 31,71, p < 0,001; Std. beta = 1,71, IC 95% [1,61, 1,82])
+
+- O efeito de `Localização da Prateleira [Média]` é estatisticamente significativo e positivo (beta = 1,95, IC 95% [1,71, 2,20], t(392) = 15,57, p < 0,001; Std. beta = 0,69, IC 95% [0,60, 0,78])
+
+- O efeito de Idade é estatisticamente significativo e negativo (beta = -0,05, IC 95% [-0,05, -0,04], t(392) = -14,52, p < 0,001; Std. beta = -0,26, IC 95% [-0,30, -0,23])
+
 - Os parâmetros padronizados foram obtidos ajustando o modelo em uma versão padronizada do conjunto de dados. Os Intervalos de Confiança (ICs) de 95% e os valores de p foram calculados usando uma aproximação da distribuição t de Wald.
-
-<!-- -->
 
 ## Coeficientes padronizados
 
 ```{r}
-
 lm.beta::lm.beta(modelo6)
-
 ```
 
 # Previsões
@@ -341,7 +315,7 @@ lm.beta::lm.beta(modelo6)
 ```{r}
 summary(dados)
 ```
-Agora, suponha que temos por objetivo prever os valores para os comprimentos das sépalas considerando os seguintes valores para as variáveis explicativas:
+Agora, suponha que temos por objetivo prever os valores de vendas (`Sales`) considerando os seguintes valores para as variáveis explicativas:
 
 ```{r}
 # Novos valores das variáveis preditoras
@@ -368,10 +342,9 @@ predict(modelo6, novas.preditoras,
 
 ```
 
-Para a primeira observação: A estimativa pontual para Sales é de aproximadamente 13.01. O intervalo de confiança é de [12.68, 13.33]. Isso significa que, com 95% de confiança, podemos afirmar que a média real das vendas para as condições especificadas (com CompPrice = 120, Income = 50, etc.) está entre 12.68 e 13.33.
+Para a primeira observação: A estimativa pontual para `Sales` é de aproximadamente 13.01. O intervalo de confiança é de [12.68, 13.33]. Isso significa que, com 95% de confiança, podemos afirmar que a média real das vendas para as condições especificadas (com `CompPrice` = 120, `Income` = 50, etc.) está entre 12.68 e 13.33.
 
-Para a segunda observação: A estimativa pontual para Sales é de aproximadamente 14.30. O intervalo de confiança é de [13.89, 14.71]. Aqui também, temos 95% de confiança de que a média real das vendas para as condições especificadas (com CompPrice = 150, Income = 70, etc.) está entre 13.89 e 14.71.
-
+Para a segunda observação: A estimativa pontual para `Sales` é de aproximadamente 14.30. O intervalo de confiança é de [13.89, 14.71]. Aqui também, temos 95% de confiança de que a média real das vendas para as condições especificadas (com `CompPrice` = 150, `Income` = 70, etc.) está entre 13.89 e 14.71.
 
 ## Intervalo de Predição/Previsão
 
@@ -380,21 +353,22 @@ Um **intervalo de predição** captura a incerteza em torno de um **único valor
 ```{r}
 predict(modelo6, novas.preditoras,
         interval = "prediction")
-
 ```
 
-Para a primeira observação: A estimativa pontual para Sales é a mesma, 13.01. No entanto, o intervalo de predição é mais amplo, variando de [10.98, 15.04]. Isso indica que, para uma nova observação sob as mesmas condições, podemos esperar que as vendas estejam entre 10.98 e 15.04. Esse intervalo mais amplo reflete a incerteza relacionada a um único valor observado, que é maior do que a incerteza associada à média.
+Para a primeira observação: A estimativa pontual para `Sales` é a mesma, 13.01. No entanto, o intervalo de predição é mais amplo, variando de [10.98, 15.04]. Isso indica que, para uma nova observação sob as mesmas condições, podemos esperar que as vendas estejam entre 10.98 e 15.04. Esse intervalo mais amplo reflete a incerteza relacionada a um único valor observado, que é maior do que a incerteza associada à média.
 
 Para a segunda observação: A estimativa pontual permanece em 14.30, mas o intervalo de predição é [12.25, 16.34]. Isso sugere que, para uma nova observação, as vendas podem variar entre 12.25 e 16.34, refletindo também a variabilidade dos dados e a incerteza associada a um único valor.
 
-
 # Conclusão
 
+A análise de regressão linear múltipla realizada sobre a base de dados `Carseats` forneceu insights valiosos sobre os fatores que influenciam as vendas de cadeirinhas de carro para crianças. O modelo ajustado, que incluiu variáveis como `CompPrice`, `Income`, `Advertising`, `Price`, `ShelveLoc` e `Age`, demonstrou um alto poder explicativo, com aproximadamente 87,34% da variação nas vendas sendo explicada pelas variáveis independentes.
 
+As análises de correlação e a avaliação do Fator de Inflação da Variância (VIF) indicaram que não há problemas significativos de multicolinearidade entre as variáveis selecionadas. A remoção das variáveis `Population`, `Education`, `Urban` e `US` do modelo não resultou em uma perda significativa de poder preditivo, conforme indicado pelo ajuste de R².
 
+Os resultados revelaram que:
 
+- `Preço` e `Publicidade` exercem efeitos positivos e significativos nas vendas, sugerindo que estratégias de marketing e posicionamento de preço podem influenciar substancialmente a demanda.
 
+- A `localização da prateleira` (especialmente em locais classificados como "Boa") é um fator crucial que pode aumentar as vendas, enquanto uma **maior idade da população** está associada a uma redução nas vendas.
 
-
-
-
+- A `renda` média dos consumidores também demonstrou ter um impacto positivo, corroborando a importância do poder aquisitivo na decisão de compra.
