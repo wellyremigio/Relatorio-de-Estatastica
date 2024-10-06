@@ -63,7 +63,6 @@ Variáveis Explicativas:
 - `US`: Um fator que indica se a loja está nos EUA. ("Yes" ou "No").  
 
 
-
 ## Análise exploratória dos dados
 
 ```{r}
@@ -80,7 +79,6 @@ De acordo com a tabela é possível observar que não há ausência de dados.
 # INCOMPLETO
 
 
-
 ### Análise de Correlação {#sec-GGally}
 ```{r}
 install.packages("GGally", quite=TRUE)
@@ -89,7 +87,6 @@ library(ggplot2)
 
 
 ### Multicolinearidade: r > 0.9 (ou 0.8)
-
 #Gráfico com a variável qualitativa US
 
 graf1 <- ggpairs(dados, 
@@ -178,7 +175,6 @@ O **VIF é calculado** para cada preditor fazendo uma regressão linear desse pr
 
 > **VIF \> 10** indica **problema de multicolinearidade**.
 
-\ 
 Veja abaixo **como obter o vif** usando o *R*, desconsiderando as variáveis ShelveLoc, US e Urban.
 
 
@@ -193,7 +189,7 @@ library(car)
 vif(modelo1)
 ```
 Como podemos ver, nenhuma das variáveis tem o VIF > 10, logo isso indica que não há um problema de multicolinearidade. 
-\
+
 
 # Modelo 1 (Com todas as variáveis)
 
@@ -206,7 +202,6 @@ Ao observar o primeiro modelo com o intuito de prever a variável `Sales`, tem-s
 O valor de F elevado e o p-valor muito baixo (< 2.2e-16) indicam que o modelo como um todo é estatisticamente significativo, ou seja, pelo menos uma das variáveis independentes está associada às vendas. 
 
 O modelo de regressão parece fornecer uma boa explicação para as vendas com base nas variáveis incluídas, especialmente o preço (`Price`), o preço dos concorrentes (`CompPrice`), a renda (`Income`), a publicidade (`Advertising`) e a idade (`Age`). Contudo, `Population`, `Education`, `Urban` e `US` não mostraram-se significativas.
-\
 
 
 ## Modelo sem `Population` (modelo2) {#sec-modelo2selecionado}
@@ -220,7 +215,6 @@ summary(modelo2)
 
 
 > Observa-se que para este modelo ajustado ocorreu um aumento no valor da adequação de ajuste do modelo para 87,01% (Adjusted R-squared: 0.8701).
-\
 
 
 ## Modelo sem `Education` (modelo3)
@@ -232,7 +226,6 @@ summary(modelo3)
 
 ```
 > Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo continuou igual ao modelo 1 com 86,98% (Adjusted R-squared: 0.8698).
-
 
 
 ## Modelo sem `Urban` (modelo4)
@@ -267,10 +260,140 @@ summary(modelo6)
 ```
 > Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697).
 
-\
 
 
 # Métodos de seleção de modelos
+
+## Medida AIC
+
+```{r}
+AIC(modelo1)
+AIC(modelo2)
+AIC(modelo3)
+AIC(modelo4)
+AIC(modelo5)
+AIC(modelo6)
+```
+
+> Comparando-se os seis modelos verificou-se que o modelo com menor valor AIC é o modelo 6, e portanto é o preferível. 
+
+## Comparação de modelos encaixados (ANOVA)
+
+```{r}
+anova(modelo6, modelo1)
+
+```
+
+O teste ANOVA indica que a diferença entre os dois modelos não é estatisticamente significativa (p = 0.358), sugerindo que o modelo mais simples (modelo6), sem essas variáveis adicionais, é preferível por ser mais mais simples e com a mesma capacidade de ajuste.
+Assim, o modelo 6 é o mais adequado, pois não há ganho significativo ao adicionar as variáveis extras, e isso ajuda a evitar a complexidade desnecessária.
+
+
+# Modelo selecionado (modelo6)
+
+```{r}
+plot(modelo6)
+
+```
+
+
+## Análises dos pressupostos e Comentários
+Pode-se observar no primeiro gráfico Residuals vc Fitted, que o modelo apresenta uma boa linearidade, já que a linha vermelha indica uma relação linear quando está próxima da linha cinza.
+
+No gráfico Q-Q Residuals pode-se notar que os erros tem uma distribuição aproximadamente normal já que os pontos estão próximos a linha pontilhada.
+
+No gráfico do Scale-Location é possível observar que a variância dos resíduos que é constante ao longo dos valores ajustados, o que indica que a suposição de homocedasticidade foi atendida.
+
+No gráfico do Residuals vs Leverage os outliers identificados foram os pontos 248 e 358, com resíduos padronizados significativos, indicando que eles podem estar influenciando o ajuste do modelo. O ponto 357 também merece atenção, mas não é tão extremo quanto os outros.
+
+
+# Interpretações do modelo selecionado
+
+```{r}
+library(report)
+
+report(modelo6)
+```
+
+Fizemos o ajuste de um modelo linear (estimado usando OLS) para prever Vendas com CompPrice, Renda, Publicidade, Preço, Localização da Prateleira e Idade (fórmula: Vendas ~ CompPrice + Renda + Publicidade + Preço + Localização da Prateleira + Idade). O modelo explica uma proporção estatisticamente significativa e substancial de variância (R² = 0,87, F(7, 392) = 381,44, p < 0,001, R² ajustado = 0,87). O intercepto do modelo, correspondente a CompPrice = 0, Renda = 0, Publicidade = 0, Preço = 0, Localização da Prateleira = Ruim e Idade = 0, é de 5,48 (IC 95% [4,48, 6,47], t(392) = 10,84, p < 0,001). Dentro deste modelo:
+
+<!-- -->
+- O efeito de CompPrice é estatisticamente significativo e positivo (beta = 0,09, IC 95% [0,08, 0,10], t(392) = 22,45, p < 0,001; beta padrão = 0,50, IC 95% [0,46, 0,55])
+- O efeito de Renda é estatisticamente significativo e positivo (beta = 0,02, IC 95% [0,01, 0,02], t(392) = 8,59, p < 0,001; beta padrão = 0,16, IC 95% [0,12, 0,19])
+- O efeito de Publicidade é estatisticamente significativo e positivo (beta = 0,12, IC 95% [0,10, 0,13], t(392) = 15,01, p < 0,001; beta padrão = 0,27, IC 95% [0,24, 0,31])
+- O efeito de Preço é estatisticamente significativo e negativo (beta = -0,10, IC 95% [-0,10, -0,09], t(392) = -35,70, p < 0,001; beta padrão = -0,80, IC 95% [-0,84, -0,76])
+- O efeito de Localização da Prateleira [Boa] é estatisticamente significativo e positivo (beta = 4,84, IC 95% [4,54, 5,14], t(392) = 31,71, p < 0,001; beta padrão = 1,71, IC 95% [1,61, 1,82])
+- O efeito de Localização da Prateleira [Média] é estatisticamente significativo e positivo (beta = 1,95, IC 95% [1,71, 2,20], t(392) = 15,57, p < 0,001; beta padrão = 0,69, IC 95% [0,60, 0,78])
+- O efeito de Idade é estatisticamente significativo e negativo (beta = -0,05, IC 95% [-0,05, -0,04], t(392) = -14,52, p < 0,001; beta padrão = -0,26, IC 95% [-0,30, -0,23])
+- Os parâmetros padronizados foram obtidos ajustando o modelo em uma versão padronizada do conjunto de dados. Os Intervalos de Confiança (ICs) de 95% e os valores de p foram calculados usando uma aproximação da distribuição t de Wald.
+
+<!-- -->
+
+## Coeficientes padronizados
+
+```{r}
+
+lm.beta::lm.beta(modelo6)
+
+```
+
+# Previsões
+
+```{r}
+summary(dados)
+```
+Agora, suponha que temos por objetivo prever os valores para os comprimentos das sépalas considerando os seguintes valores para as variáveis explicativas:
+
+```{r}
+# Novos valores das variáveis preditoras
+novas.preditoras <- data.frame(CompPrice = c(120, 150), 
+                                Income = c(50, 70), 
+                                Advertising = c(10, 20), 
+                                Price = c(99, 95), 
+                                ShelveLoc = factor(c("Good", "Medium")), 
+                                Age = c(20, 30))
+```
+
+**Observação**:
+
+O data.frame `novas.preditoras` com os novos valores das variáveis preditoras deve ser construído com os mesmos nomes das variáveis preditoras utilizadas no objeto que contém o modelo ajustado.
+
+## Intervalo de Confiança
+
+Um **intervalo de confiança** captura a incerteza em torno dos **valores médios (valores esperados)** preditos.
+
+```{r}
+
+predict(modelo6, novas.preditoras,
+        interval = "confidence")
+
+```
+
+Para a primeira observação: A estimativa pontual para Sales é de aproximadamente 13.01. O intervalo de confiança é de [12.68, 13.33]. Isso significa que, com 95% de confiança, podemos afirmar que a média real das vendas para as condições especificadas (com CompPrice = 120, Income = 50, etc.) está entre 12.68 e 13.33.
+
+Para a segunda observação: A estimativa pontual para Sales é de aproximadamente 14.30. O intervalo de confiança é de [13.89, 14.71]. Aqui também, temos 95% de confiança de que a média real das vendas para as condições especificadas (com CompPrice = 150, Income = 70, etc.) está entre 13.89 e 14.71.
+
+
+## Intervalo de Predição/Previsão
+
+Um **intervalo de predição** captura a incerteza em torno de um **único valor** não observado na base de dados e não em torno do seu **valor médio/esperado** o qual é obtido pelas variáveis preditoras observadas na base de dados.
+
+```{r}
+predict(modelo6, novas.preditoras,
+        interval = "prediction")
+
+```
+
+Para a primeira observação: A estimativa pontual para Sales é a mesma, 13.01. No entanto, o intervalo de predição é mais amplo, variando de [10.98, 15.04]. Isso indica que, para uma nova observação sob as mesmas condições, podemos esperar que as vendas estejam entre 10.98 e 15.04. Esse intervalo mais amplo reflete a incerteza relacionada a um único valor observado, que é maior do que a incerteza associada à média.
+
+Para a segunda observação: A estimativa pontual permanece em 14.30, mas o intervalo de predição é [12.25, 16.34]. Isso sugere que, para uma nova observação, as vendas podem variar entre 12.25 e 16.34, refletindo também a variabilidade dos dados e a incerteza associada a um único valor.
+
+
+# Conclusão
+
+
+
+
+
 
 
 

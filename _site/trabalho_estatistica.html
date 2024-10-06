@@ -162,7 +162,25 @@ window.Quarto = {
   <li><a href="#modelo-sem-us-modelo5" id="toc-modelo-sem-us-modelo5" class="nav-link" data-scroll-target="#modelo-sem-us-modelo5"><span class="header-section-number">3.4</span> Modelo sem <code>US</code> (modelo5)</a></li>
   <li><a href="#modelo-sem-population-education-urban-e-us-modelo6" id="toc-modelo-sem-population-education-urban-e-us-modelo6" class="nav-link" data-scroll-target="#modelo-sem-population-education-urban-e-us-modelo6"><span class="header-section-number">3.5</span> Modelo sem <code>Population</code>, <code>Education</code>, <code>Urban</code> e <code>US</code> (modelo6)</a></li>
   </ul></li>
-  <li><a href="#métodos-de-seleção-de-modelos" id="toc-métodos-de-seleção-de-modelos" class="nav-link" data-scroll-target="#métodos-de-seleção-de-modelos"><span class="header-section-number">4</span> Métodos de seleção de modelos</a></li>
+  <li><a href="#métodos-de-seleção-de-modelos" id="toc-métodos-de-seleção-de-modelos" class="nav-link" data-scroll-target="#métodos-de-seleção-de-modelos"><span class="header-section-number">4</span> Métodos de seleção de modelos</a>
+  <ul class="collapse">
+  <li><a href="#medida-aic" id="toc-medida-aic" class="nav-link" data-scroll-target="#medida-aic"><span class="header-section-number">4.1</span> Medida AIC</a></li>
+  <li><a href="#comparação-de-modelos-encaixados-anova" id="toc-comparação-de-modelos-encaixados-anova" class="nav-link" data-scroll-target="#comparação-de-modelos-encaixados-anova"><span class="header-section-number">4.2</span> Comparação de modelos encaixados (ANOVA)</a></li>
+  </ul></li>
+  <li><a href="#modelo-selecionado-modelo6" id="toc-modelo-selecionado-modelo6" class="nav-link" data-scroll-target="#modelo-selecionado-modelo6"><span class="header-section-number">5</span> Modelo selecionado (modelo6)</a>
+  <ul class="collapse">
+  <li><a href="#análises-dos-pressupostos-e-comentários" id="toc-análises-dos-pressupostos-e-comentários" class="nav-link" data-scroll-target="#análises-dos-pressupostos-e-comentários"><span class="header-section-number">5.1</span> Análises dos pressupostos e Comentários</a></li>
+  </ul></li>
+  <li><a href="#interpretações-do-modelo-selecionado" id="toc-interpretações-do-modelo-selecionado" class="nav-link" data-scroll-target="#interpretações-do-modelo-selecionado"><span class="header-section-number">6</span> Interpretações do modelo selecionado</a>
+  <ul class="collapse">
+  <li><a href="#coeficientes-padronizados" id="toc-coeficientes-padronizados" class="nav-link" data-scroll-target="#coeficientes-padronizados"><span class="header-section-number">6.1</span> Coeficientes padronizados</a></li>
+  </ul></li>
+  <li><a href="#previsões" id="toc-previsões" class="nav-link" data-scroll-target="#previsões"><span class="header-section-number">7</span> Previsões</a>
+  <ul class="collapse">
+  <li><a href="#intervalo-de-confiança" id="toc-intervalo-de-confiança" class="nav-link" data-scroll-target="#intervalo-de-confiança"><span class="header-section-number">7.1</span> Intervalo de Confiança</a></li>
+  <li><a href="#intervalo-de-prediçãoprevisão" id="toc-intervalo-de-prediçãoprevisão" class="nav-link" data-scroll-target="#intervalo-de-prediçãoprevisão"><span class="header-section-number">7.2</span> Intervalo de Predição/Previsão</a></li>
+  </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">8</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -486,27 +504,26 @@ window.Quarto = {
 <pre><code>package 'GGally' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\Notebook\AppData\Local\Temp\RtmpITTGwA\downloaded_packages</code></pre>
+    C:\Users\Notebook\AppData\Local\Temp\Rtmp0qfarU\downloaded_packages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)<span class="co"># Pacote para função ggpairs</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">### Multicolinearidade: r &gt; 0.9 (ou 0.8)</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico com a variável qualitativa US</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>graf1 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>US), </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),                      </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,                              </span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))    </span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>graf1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico com a variável qualitativa US</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>graf1 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>US), </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),                      </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,                              </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))    </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>graf1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -586,7 +603,7 @@ The downloaded binary packages are in
 <blockquote class="blockquote">
 <p><strong>VIF &gt; 10</strong> indica <strong>problema de multicolinearidade</strong>.</p>
 </blockquote>
-<p>&nbsp; Veja abaixo <strong>como obter o vif</strong> usando o <em>R</em>, desconsiderando as variáveis ShelveLoc, US e Urban.</p>
+<p>Veja abaixo <strong>como obter o vif</strong> usando o <em>R</em>, desconsiderando as variáveis ShelveLoc, US e Urban.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo1 &lt;- lm(Sales ~ . - ShelveLoc - US - Urban, data = dados)</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sales <span class="sc">~</span> CompPrice <span class="sc">+</span> Income <span class="sc">+</span> Advertising <span class="sc">+</span> Population <span class="sc">+</span> Price <span class="sc">+</span> ShelveLoc <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Urban <span class="sc">+</span> US, <span class="at">data =</span> dados)</span>
@@ -608,8 +625,7 @@ Urban       1.022705  1        1.011289
 US          1.980720  1        1.407380</code></pre>
 </div>
 </div>
-<p>Como podemos ver, nenhuma das variáveis tem o VIF &gt; 10, logo isso indica que não há um problema de multicolinearidade.<br>
-</p>
+<p>Como podemos ver, nenhuma das variáveis tem o VIF &gt; 10, logo isso indica que não há um problema de multicolinearidade.</p>
 </section>
 </section>
 </section>
@@ -651,8 +667,7 @@ F-statistic: 243.4 on 11 and 388 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>Ao observar o primeiro modelo com o intuito de prever a variável <code>Sales</code>, tem-se que aproximadamente 87,34% (Multiple R-squared: 0,8734) da variação nas vendas é explicada pelas variáveis independentes, o que é um bom ajuste. Um valor de 86,98% (Adjusted R-squared: 0,8698) confirma que, mesmo ajustando para o número de variáveis no modelo, o ajuste ainda é forte. Isso é importante porque evita o viés de um R² inflado quando são adicionados mais preditores. O valor de F elevado e o p-valor muito baixo (&lt; 2.2e-16) indicam que o modelo como um todo é estatisticamente significativo, ou seja, pelo menos uma das variáveis independentes está associada às vendas.</p>
-<p>O modelo de regressão parece fornecer uma boa explicação para as vendas com base nas variáveis incluídas, especialmente o preço (<code>Price</code>), o preço dos concorrentes (<code>CompPrice</code>), a renda (<code>Income</code>), a publicidade (<code>Advertising</code>) e a idade (<code>Age</code>). Contudo, <code>Population</code>, <code>Education</code>, <code>Urban</code> e <code>US</code> não mostraram-se significativas.<br>
-</p>
+<p>O modelo de regressão parece fornecer uma boa explicação para as vendas com base nas variáveis incluídas, especialmente o preço (<code>Price</code>), o preço dos concorrentes (<code>CompPrice</code>), a renda (<code>Income</code>), a publicidade (<code>Advertising</code>) e a idade (<code>Age</code>). Contudo, <code>Population</code>, <code>Education</code>, <code>Urban</code> e <code>US</code> não mostraram-se significativas.</p>
 <section id="sec-modelo2selecionado" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sec-modelo2selecionado"><span class="header-section-number">3.1</span> Modelo sem <code>Population</code> (modelo2)</h2>
 <div class="cell">
@@ -691,8 +706,7 @@ F-statistic: 268.2 on 10 and 389 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p>Observa-se que para este modelo ajustado ocorreu um aumento no valor da adequação de ajuste do modelo para 87,01% (Adjusted R-squared: 0.8701).<br>
-</p>
+<p>Observa-se que para este modelo ajustado ocorreu um aumento no valor da adequação de ajuste do modelo para 87,01% (Adjusted R-squared: 0.8701).</p>
 </blockquote>
 </section>
 <section id="modelo-sem-education-modelo3" class="level2" data-number="3.2">
@@ -855,12 +869,250 @@ F-statistic: 381.4 on 7 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
 <blockquote class="blockquote">
 <p>Observa-se que para este modelo ajustado o valor da adequação de ajuste do modelo diminuiu em comparação com o modelo 1, ficando com 86,97% (Adjusted R-squared: 0.8697).</p>
 </blockquote>
-<p><br>
-</p>
 </section>
 </section>
 <section id="métodos-de-seleção-de-modelos" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Métodos de seleção de modelos</h1>
+<section id="medida-aic" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="medida-aic"><span class="header-section-number">4.1</span> Medida AIC</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1163.974</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1162.299</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo3)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1163.153</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo4)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1163.192</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo5)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1163.527</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo6)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1160.47</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Comparando-se os seis modelos verificou-se que o modelo com menor valor AIC é o modelo 6, e portanto é o preferível.</p>
+</blockquote>
+</section>
+<section id="comparação-de-modelos-encaixados-anova" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="comparação-de-modelos-encaixados-anova"><span class="header-section-number">4.2</span> Comparação de modelos encaixados (ANOVA)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo6, modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: Sales ~ CompPrice + Income + Advertising + Price + ShelveLoc + 
+    Age
+Model 2: Sales ~ CompPrice + Income + Advertising + Population + Price + 
+    ShelveLoc + Age + Education + Urban + US
+  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+1    392 407.39                           
+2    388 402.83  4    4.5533 1.0964  0.358</code></pre>
+</div>
+</div>
+<p>O teste ANOVA indica que a diferença entre os dois modelos não é estatisticamente significativa (p = 0.358), sugerindo que o modelo mais simples (modelo6), sem essas variáveis adicionais, é preferível por ser mais mais simples e com a mesma capacidade de ajuste. Assim, o modelo 6 é o mais adequado, pois não há ganho significativo ao adicionar as variáveis extras, e isso ajuda a evitar a complexidade desnecessária.</p>
+</section>
+</section>
+<section id="modelo-selecionado-modelo6" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Modelo selecionado (modelo6)</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo6)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_estatistica_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_estatistica_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_estatistica_files/figure-html/unnamed-chunk-13-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_estatistica_files/figure-html/unnamed-chunk-13-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="análises-dos-pressupostos-e-comentários" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="análises-dos-pressupostos-e-comentários"><span class="header-section-number">5.1</span> Análises dos pressupostos e Comentários</h2>
+<p>Pode-se observar no primeiro gráfico Residuals vc Fitted, que o modelo apresenta uma boa linearidade, já que a linha vermelha indica uma relação linear quando está próxima da linha cinza.</p>
+<p>No gráfico Q-Q Residuals pode-se notar que os erros tem uma distribuição aproximadamente normal já que os pontos estão próximos a linha pontilhada.</p>
+<p>No gráfico do Scale-Location é possível observar que a variância dos resíduos que é constante ao longo dos valores ajustados, o que indica que a suposição de homocedasticidade foi atendida.</p>
+<p>No gráfico do Residuals vs Leverage os outliers identificados foram os pontos 248 e 358, com resíduos padronizados significativos, indicando que eles podem estar influenciando o ajuste do modelo. O ponto 357 também merece atenção, mas não é tão extremo quanto os outros.</p>
+</section>
+</section>
+<section id="interpretações-do-modelo-selecionado" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Interpretações do modelo selecionado</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(report)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">report</span>(modelo6)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>We fitted a linear model (estimated using OLS) to predict Sales with CompPrice,
+Income, Advertising, Price, ShelveLoc and Age (formula: Sales ~ CompPrice +
+Income + Advertising + Price + ShelveLoc + Age). The model explains a
+statistically significant and substantial proportion of variance (R2 = 0.87,
+F(7, 392) = 381.44, p &lt; .001, adj. R2 = 0.87). The model's intercept,
+corresponding to CompPrice = 0, Income = 0, Advertising = 0, Price = 0,
+ShelveLoc = Bad and Age = 0, is at 5.48 (95% CI [4.48, 6.47], t(392) = 10.84, p
+&lt; .001). Within this model:
+
+  - The effect of CompPrice is statistically significant and positive (beta =
+0.09, 95% CI [0.08, 0.10], t(392) = 22.45, p &lt; .001; Std. beta = 0.50, 95% CI
+[0.46, 0.55])
+  - The effect of Income is statistically significant and positive (beta = 0.02,
+95% CI [0.01, 0.02], t(392) = 8.59, p &lt; .001; Std. beta = 0.16, 95% CI [0.12,
+0.19])
+  - The effect of Advertising is statistically significant and positive (beta =
+0.12, 95% CI [0.10, 0.13], t(392) = 15.01, p &lt; .001; Std. beta = 0.27, 95% CI
+[0.24, 0.31])
+  - The effect of Price is statistically significant and negative (beta = -0.10,
+95% CI [-0.10, -0.09], t(392) = -35.70, p &lt; .001; Std. beta = -0.80, 95% CI
+[-0.84, -0.76])
+  - The effect of ShelveLoc [Good] is statistically significant and positive
+(beta = 4.84, 95% CI [4.54, 5.14], t(392) = 31.71, p &lt; .001; Std. beta = 1.71,
+95% CI [1.61, 1.82])
+  - The effect of ShelveLoc [Medium] is statistically significant and positive
+(beta = 1.95, 95% CI [1.71, 2.20], t(392) = 15.57, p &lt; .001; Std. beta = 0.69,
+95% CI [0.60, 0.78])
+  - The effect of Age is statistically significant and negative (beta = -0.05,
+95% CI [-0.05, -0.04], t(392) = -14.52, p &lt; .001; Std. beta = -0.26, 95% CI
+[-0.30, -0.23])
+
+Standardized parameters were obtained by fitting the model on a standardized
+version of the dataset. 95% Confidence Intervals (CIs) and p-values were
+computed using a Wald t-distribution approximation.</code></pre>
+</div>
+</div>
+<p>Fizemos o ajuste de um modelo linear (estimado usando OLS) para prever Vendas com CompPrice, Renda, Publicidade, Preço, Localização da Prateleira e Idade (fórmula: Vendas ~ CompPrice + Renda + Publicidade + Preço + Localização da Prateleira + Idade). O modelo explica uma proporção estatisticamente significativa e substancial de variância (R² = 0,87, F(7, 392) = 381,44, p &lt; 0,001, R² ajustado = 0,87). O intercepto do modelo, correspondente a CompPrice = 0, Renda = 0, Publicidade = 0, Preço = 0, Localização da Prateleira = Ruim e Idade = 0, é de 5,48 (IC 95% [4,48, 6,47], t(392) = 10,84, p &lt; 0,001). Dentro deste modelo:</p>
+<!-- -->
+<ul>
+<li>O efeito de CompPrice é estatisticamente significativo e positivo (beta = 0,09, IC 95% [0,08, 0,10], t(392) = 22,45, p &lt; 0,001; beta padrão = 0,50, IC 95% [0,46, 0,55])</li>
+<li>O efeito de Renda é estatisticamente significativo e positivo (beta = 0,02, IC 95% [0,01, 0,02], t(392) = 8,59, p &lt; 0,001; beta padrão = 0,16, IC 95% [0,12, 0,19])</li>
+<li>O efeito de Publicidade é estatisticamente significativo e positivo (beta = 0,12, IC 95% [0,10, 0,13], t(392) = 15,01, p &lt; 0,001; beta padrão = 0,27, IC 95% [0,24, 0,31])</li>
+<li>O efeito de Preço é estatisticamente significativo e negativo (beta = -0,10, IC 95% [-0,10, -0,09], t(392) = -35,70, p &lt; 0,001; beta padrão = -0,80, IC 95% [-0,84, -0,76])</li>
+<li>O efeito de Localização da Prateleira [Boa] é estatisticamente significativo e positivo (beta = 4,84, IC 95% [4,54, 5,14], t(392) = 31,71, p &lt; 0,001; beta padrão = 1,71, IC 95% [1,61, 1,82])</li>
+<li>O efeito de Localização da Prateleira [Média] é estatisticamente significativo e positivo (beta = 1,95, IC 95% [1,71, 2,20], t(392) = 15,57, p &lt; 0,001; beta padrão = 0,69, IC 95% [0,60, 0,78])</li>
+<li>O efeito de Idade é estatisticamente significativo e negativo (beta = -0,05, IC 95% [-0,05, -0,04], t(392) = -14,52, p &lt; 0,001; beta padrão = -0,26, IC 95% [-0,30, -0,23])</li>
+<li>Os parâmetros padronizados foram obtidos ajustando o modelo em uma versão padronizada do conjunto de dados. Os Intervalos de Confiança (ICs) de 95% e os valores de p foram calculados usando uma aproximação da distribuição t de Wald.</li>
+</ul>
+<!-- -->
+<section id="coeficientes-padronizados" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="coeficientes-padronizados"><span class="header-section-number">6.1</span> Coeficientes padronizados</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>lm.beta<span class="sc">::</span><span class="fu">lm.beta</span>(modelo6)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sales ~ CompPrice + Income + Advertising + Price + 
+    ShelveLoc + Age, data = dados)
+
+Standardized Coefficients::
+    (Intercept)       CompPrice          Income     Advertising           Price 
+             NA       0.5026489       0.1564238       0.2729350      -0.7991299 
+  ShelveLocGood ShelveLocMedium             Age 
+      0.7013309       0.3444615      -0.2646066 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="previsões" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Previsões</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Sales          CompPrice       Income        Advertising    
+ Min.   : 0.000   Min.   : 77   Min.   : 21.00   Min.   : 0.000  
+ 1st Qu.: 5.390   1st Qu.:115   1st Qu.: 42.75   1st Qu.: 0.000  
+ Median : 7.490   Median :125   Median : 69.00   Median : 5.000  
+ Mean   : 7.496   Mean   :125   Mean   : 68.66   Mean   : 6.635  
+ 3rd Qu.: 9.320   3rd Qu.:135   3rd Qu.: 91.00   3rd Qu.:12.000  
+ Max.   :16.270   Max.   :175   Max.   :120.00   Max.   :29.000  
+   Population        Price        ShelveLoc        Age          Education   
+ Min.   : 10.0   Min.   : 24.0   Bad   : 96   Min.   :25.00   Min.   :10.0  
+ 1st Qu.:139.0   1st Qu.:100.0   Good  : 85   1st Qu.:39.75   1st Qu.:12.0  
+ Median :272.0   Median :117.0   Medium:219   Median :54.50   Median :14.0  
+ Mean   :264.8   Mean   :115.8                Mean   :53.32   Mean   :13.9  
+ 3rd Qu.:398.5   3rd Qu.:131.0                3rd Qu.:66.00   3rd Qu.:16.0  
+ Max.   :509.0   Max.   :191.0                Max.   :80.00   Max.   :18.0  
+ Urban       US     
+ No :118   No :142  
+ Yes:282   Yes:258  
+                    
+                    
+                    
+                    </code></pre>
+</div>
+</div>
+<p>Agora, suponha que temos por objetivo prever os valores para os comprimentos das sépalas considerando os seguintes valores para as variáveis explicativas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Novos valores das variáveis preditoras</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>novas.preditoras <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">CompPrice =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">150</span>), </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Income =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">70</span>), </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Advertising =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>), </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Price =</span> <span class="fu">c</span>(<span class="dv">99</span>, <span class="dv">95</span>), </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">ShelveLoc =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Good"</span>, <span class="st">"Medium"</span>)), </span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Observação</strong>:</p>
+<p>O data.frame <code>novas.preditoras</code> com os novos valores das variáveis preditoras deve ser construído com os mesmos nomes das variáveis preditoras utilizadas no objeto que contém o modelo ajustado.</p>
+<section id="intervalo-de-confiança" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="intervalo-de-confiança"><span class="header-section-number">7.1</span> Intervalo de Confiança</h2>
+<p>Um <strong>intervalo de confiança</strong> captura a incerteza em torno dos <strong>valores médios (valores esperados)</strong> preditos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo6, novas.preditoras,</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">interval =</span> <span class="st">"confidence"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit      lwr      upr
+1 13.00863 12.68342 13.33384
+2 14.29683 13.88790 14.70576</code></pre>
+</div>
+</div>
+<p>Para a primeira observação: A estimativa pontual para Sales é de aproximadamente 13.01. O intervalo de confiança é de [12.68, 13.33]. Isso significa que, com 95% de confiança, podemos afirmar que a média real das vendas para as condições especificadas (com CompPrice = 120, Income = 50, etc.) está entre 12.68 e 13.33.</p>
+<p>Para a segunda observação: A estimativa pontual para Sales é de aproximadamente 14.30. O intervalo de confiança é de [13.89, 14.71]. Aqui também, temos 95% de confiança de que a média real das vendas para as condições especificadas (com CompPrice = 150, Income = 70, etc.) está entre 13.89 e 14.71.</p>
+</section>
+<section id="intervalo-de-prediçãoprevisão" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="intervalo-de-prediçãoprevisão"><span class="header-section-number">7.2</span> Intervalo de Predição/Previsão</h2>
+<p>Um <strong>intervalo de predição</strong> captura a incerteza em torno de um <strong>único valor</strong> não observado na base de dados e não em torno do seu <strong>valor médio/esperado</strong> o qual é obtido pelas variáveis preditoras observadas na base de dados.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo6, novas.preditoras,</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">interval =</span> <span class="st">"prediction"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit      lwr      upr
+1 13.00863 10.97817 15.03909
+2 14.29683 12.25129 16.34237</code></pre>
+</div>
+</div>
+<p>Para a primeira observação: A estimativa pontual para Sales é a mesma, 13.01. No entanto, o intervalo de predição é mais amplo, variando de [10.98, 15.04]. Isso indica que, para uma nova observação sob as mesmas condições, podemos esperar que as vendas estejam entre 10.98 e 15.04. Esse intervalo mais amplo reflete a incerteza relacionada a um único valor observado, que é maior do que a incerteza associada à média.</p>
+<p>Para a segunda observação: A estimativa pontual permanece em 14.30, mas o intervalo de predição é [12.25, 16.34]. Isso sugere que, para uma nova observação, as vendas podem variar entre 12.25 e 16.34, refletindo também a variabilidade dos dados e a incerteza associada a um único valor.</p>
+</section>
+</section>
+<section id="conclusão" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Conclusão</h1>
 
 
 </section>
