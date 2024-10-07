@@ -36,8 +36,10 @@ Neste contexto a regressão será realizada sobre base de dados `Carseats`, que 
 ```{r}
 install.packages("ISLR", quiet=TRUE) #instalando pacote
 library(ISLR) #chamando pacote
+library(dplyr)
 
 write.table(Carseats , file="dados_carseats.csv", sep=";", dec=",") #criando arquivo .csv no local de 
+glimpse(Carseats)
 
 ```
 
