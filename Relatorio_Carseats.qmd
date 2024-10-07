@@ -42,9 +42,12 @@ write.table(Carseats , file="dados_carseats.csv", sep=";", dec=",") #criando arq
 ```
 
 Descrição da Base de Dados:
+\
 Número de observações: 400
+\
 Variável Resposta:
 - `Sales`: Vendas de cadeirinhas de carro em diferentes locais. (Milhares de unidades)
+\
 
 Variáveis Explicativas:
 - `CompPrice`: Preço da cadeirinha na loja concorrente. (em dólares).  
@@ -73,8 +76,11 @@ skim(dados)
 ### Comentários:
 De acordo com a tabela é possível observar que não há ausência de dados. O conjunto contém tanto as variáveis numéricas (como `Sales`, `CompPrice`, `Income`, `Advertising`, `Population`, `Price`, `Age`) quanto as categóricas (como `ShelveLoc`, `Urban` e `US`). 
 As variáveis numéricas foram descritas por meio de estatísticas como média, mediana, desvio padrão e percentis, fornecendo uma visão clara sobre sua distribuição. 
+Em relação aos outliers, eles podem ser observados no gráfico *Residuals vs Leverage* [grafico-outliers](#grafico-outliers). 
 
-### Análise de Correlação {#sec-GGally}
+
+
+### Análise de Correlação 
 ```{r}
 install.packages("GGally", quite=TRUE)
 library(GGally)# Pacote para função ggpairs
@@ -85,7 +91,7 @@ library(ggplot2)
 
 graf1 <- ggpairs(dados, 
                  columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
-                 ggplot2::aes(colour=US), 
+                 ggplot2::aes(colour=US, alpha = 0.4),
                  upper = list(continuous = wrap("cor", size = 3)), 
                  lower = list(continuous = "points")) +            
   theme_minimal() +                                              
@@ -99,7 +105,7 @@ graf1
 
 graf2 <- ggpairs(dados, 
                  columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
-                 ggplot2::aes(colour=Urban), 
+                 ggplot2::aes(colour=Urban, alpha = 0.4), 
                  upper = list(continuous = wrap("cor", size = 3)), 
                  lower = list(continuous = "points")) +            
   theme_minimal() +                                              
@@ -113,7 +119,7 @@ graf2
 
 graf3 <- ggpairs(dados, 
                  columns = c("Sales", "CompPrice", "Income", "Advertising", "Population", "Price", "Age", "Education"), 
-                 ggplot2::aes(colour=ShelveLoc), 
+                 ggplot2::aes(colour=ShelveLoc, alpha = 0.4), 
                  upper = list(continuous = wrap("cor", size = 3)), 
                  lower = list(continuous = "points")) +            
   theme_minimal() +                                              
@@ -260,7 +266,7 @@ anova(modelo6, modelo1)
 O teste ANOVA indica que a diferença entre os dois modelos não é estatisticamente significativa (p = 0.358), sugerindo que o modelo mais simples (modelo6), sem essas variáveis adicionais, é preferível por ser mais mais simples e possuir a mesma capacidade de ajuste.
 Assim, o modelo 6 é o mais adequado, pois não há ganho significativo ao adicionar as variáveis extras, e isso ajuda a evitar a complexidade desnecessária.
 
-# Modelo selecionado (modelo6)
+# Modelo selecionado (modelo6) {#grafico-outliers}
 
 ```{r}
 plot(modelo6)
@@ -273,9 +279,9 @@ No gráfico _Q-Q Residuals_ pode-se notar que os erros têm uma distribuição a
 
 No gráfico do _Scale-Location_ é possível observar que a variância dos resíduos é constante ao longo dos valores ajustados, o que indica que a suposição de homocedasticidade foi atendida.
 
-No gráfico do _Residuals vs Leverage_ os outliers identificados foram os pontos 248 e 358, com resíduos padronizados significativos, indicando que eles podem estar influenciando o ajuste do modelo. O ponto 357 também merece atenção, mas não é tão extremo quanto os outros.
+No gráfico do _Residuals vs Leverage_ o outlier identificado foi o ponto 358, com resíduos padronizados significativos, indicando que ele pode estar influenciando o ajuste do modelo. O ponto 357 também merece atenção, mas não é tão extremo quanto o outro.
 
-# Interpretações do modelo selecionado
+# Interpretações do modelo selecionado 
 
 ```{r}
 library(report)
@@ -326,9 +332,6 @@ novas.preditoras <- data.frame(CompPrice = c(120, 150),
                                 Age = c(20, 30))
 ```
 
-**Observação**:
-
-O data.frame `novas.preditoras` com os novos valores das variáveis preditoras deve ser construído com os mesmos nomes das variáveis preditoras utilizadas no objeto que contém o modelo ajustado.
 
 ## Intervalo de Confiança
 

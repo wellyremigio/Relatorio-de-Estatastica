@@ -115,7 +115,7 @@ window.Quarto = {
   <li><a href="#análise-exploratória-dos-dados" id="toc-análise-exploratória-dos-dados" class="nav-link" data-scroll-target="#análise-exploratória-dos-dados"><span class="header-section-number">2.1</span> Análise exploratória dos dados</a>
   <ul class="collapse">
   <li><a href="#comentários" id="toc-comentários" class="nav-link" data-scroll-target="#comentários"><span class="header-section-number">2.1.1</span> Comentários:</a></li>
-  <li><a href="#sec-GGally" id="toc-sec-GGally" class="nav-link" data-scroll-target="#sec-GGally"><span class="header-section-number">2.1.2</span> Análise de Correlação</a></li>
+  <li><a href="#análise-de-correlação" id="toc-análise-de-correlação" class="nav-link" data-scroll-target="#análise-de-correlação"><span class="header-section-number">2.1.2</span> Análise de Correlação</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#modelo-1-com-todas-as-variáveis" id="toc-modelo-1-com-todas-as-variáveis" class="nav-link" data-scroll-target="#modelo-1-com-todas-as-variáveis"><span class="header-section-number">3</span> Modelo 1 (Com todas as variáveis)</a>
@@ -131,7 +131,7 @@ window.Quarto = {
   <li><a href="#medida-aic" id="toc-medida-aic" class="nav-link" data-scroll-target="#medida-aic"><span class="header-section-number">4.1</span> Medida AIC</a></li>
   <li><a href="#comparação-de-modelos-encaixados-anova" id="toc-comparação-de-modelos-encaixados-anova" class="nav-link" data-scroll-target="#comparação-de-modelos-encaixados-anova"><span class="header-section-number">4.2</span> Comparação de modelos encaixados (ANOVA)</a></li>
   </ul></li>
-  <li><a href="#modelo-selecionado-modelo6" id="toc-modelo-selecionado-modelo6" class="nav-link" data-scroll-target="#modelo-selecionado-modelo6"><span class="header-section-number">5</span> Modelo selecionado (modelo6)</a>
+  <li><a href="#grafico-outliers" id="toc-grafico-outliers" class="nav-link" data-scroll-target="#grafico-outliers"><span class="header-section-number">5</span> Modelo selecionado (modelo6)</a>
   <ul class="collapse">
   <li><a href="#análises-dos-pressupostos-e-comentários" id="toc-análises-dos-pressupostos-e-comentários" class="nav-link" data-scroll-target="#análises-dos-pressupostos-e-comentários"><span class="header-section-number">5.1</span> Análises dos pressupostos e Comentários</a></li>
   </ul></li>
@@ -207,7 +207,10 @@ window.Quarto = {
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(Carseats , <span class="at">file=</span><span class="st">"dados_carseats.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">dec=</span><span class="st">","</span>) <span class="co">#criando arquivo .csv no local de </span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Descrição da Base de Dados: Número de observações: 400 Variável Resposta: - <code>Sales</code>: Vendas de cadeirinhas de carro em diferentes locais. (Milhares de unidades)</p>
+<p>Descrição da Base de Dados:<br>
+Número de observações: 400<br>
+Variável Resposta: - <code>Sales</code>: Vendas de cadeirinhas de carro em diferentes locais. (Milhares de unidades)<br>
+</p>
 <p>Variáveis Explicativas: - <code>CompPrice</code>: Preço da cadeirinha na loja concorrente. (em dólares).<br>
 - <code>Income</code>: Renda média dos consumidores naquela região. (em milhares de dólares).<br>
 - <code>Advertising</code>: Valor gasto em publicidade para aquela região (em milhares de dólares).<br>
@@ -456,17 +459,17 @@ window.Quarto = {
 </div>
 <section id="comentários" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="comentários"><span class="header-section-number">2.1.1</span> Comentários:</h3>
-<p>De acordo com a tabela é possível observar que não há ausência de dados. O conjunto contém tanto as variáveis numéricas (como <code>Sales</code>, <code>CompPrice</code>, <code>Income</code>, <code>Advertising</code>, <code>Population</code>, <code>Price</code>, <code>Age</code>) quanto as categóricas (como <code>ShelveLoc</code>, <code>Urban</code> e <code>US</code>). As variáveis numéricas foram descritas por meio de estatísticas como média, mediana, desvio padrão e percentis, fornecendo uma visão clara sobre sua distribuição.</p>
+<p>De acordo com a tabela é possível observar que não há ausência de dados. O conjunto contém tanto as variáveis numéricas (como <code>Sales</code>, <code>CompPrice</code>, <code>Income</code>, <code>Advertising</code>, <code>Population</code>, <code>Price</code>, <code>Age</code>) quanto as categóricas (como <code>ShelveLoc</code>, <code>Urban</code> e <code>US</code>). As variáveis numéricas foram descritas por meio de estatísticas como média, mediana, desvio padrão e percentis, fornecendo uma visão clara sobre sua distribuição. Em relação aos outliers, eles podem ser observados no gráfico <em>Residuals vs Leverage</em> <a href="#grafico-outliers">grafico-outliers</a>.</p>
 </section>
-<section id="sec-GGally" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="sec-GGally"><span class="header-section-number">2.1.2</span> Análise de Correlação</h3>
+<section id="análise-de-correlação" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="análise-de-correlação"><span class="header-section-number">2.1.2</span> Análise de Correlação</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"GGally"</span>, <span class="at">quite=</span><span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>package 'GGally' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\Notebook\AppData\Local\Temp\Rtmp2h3han\downloaded_packages</code></pre>
+    C:\Users\Notebook\AppData\Local\Temp\RtmpIXBvVI\downloaded_packages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)<span class="co"># Pacote para função ggpairs</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -476,7 +479,7 @@ The downloaded binary packages are in
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>graf1 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>US), </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>US, <span class="at">alpha =</span> <span class="fl">0.4</span>),</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
@@ -496,7 +499,7 @@ The downloaded binary packages are in
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>graf2 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>Urban), </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>Urban, <span class="at">alpha =</span> <span class="fl">0.4</span>), </span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
@@ -516,7 +519,7 @@ The downloaded binary packages are in
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>graf3 <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(dados, </span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"Sales"</span>, <span class="st">"CompPrice"</span>, <span class="st">"Income"</span>, <span class="st">"Advertising"</span>, <span class="st">"Population"</span>, <span class="st">"Price"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>), </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>ShelveLoc), </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                 ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>ShelveLoc, <span class="at">alpha =</span> <span class="fl">0.4</span>), </span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>)), </span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"points"</span>)) <span class="sc">+</span>            </span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                              </span>
@@ -888,7 +891,7 @@ Model 2: Sales ~ CompPrice + Income + Advertising + Population + Price +
 <p>O teste ANOVA indica que a diferença entre os dois modelos não é estatisticamente significativa (p = 0.358), sugerindo que o modelo mais simples (modelo6), sem essas variáveis adicionais, é preferível por ser mais mais simples e possuir a mesma capacidade de ajuste. Assim, o modelo 6 é o mais adequado, pois não há ganho significativo ao adicionar as variáveis extras, e isso ajuda a evitar a complexidade desnecessária.</p>
 </section>
 </section>
-<section id="modelo-selecionado-modelo6" class="level1" data-number="5">
+<section id="grafico-outliers" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Modelo selecionado (modelo6)</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo6)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -926,7 +929,7 @@ Model 2: Sales ~ CompPrice + Income + Advertising + Population + Price +
 <p>Pode-se observar no primeiro gráfico <em>Residuals vs Fitted</em> que o modelo apresenta uma boa linearidade, já que a linha vermelha indica uma relação linear quando está próxima da linha cinza.</p>
 <p>No gráfico <em>Q-Q Residuals</em> pode-se notar que os erros têm uma distribuição aproximadamente normal, já que os pontos estão próximos à linha pontilhada.</p>
 <p>No gráfico do <em>Scale-Location</em> é possível observar que a variância dos resíduos é constante ao longo dos valores ajustados, o que indica que a suposição de homocedasticidade foi atendida.</p>
-<p>No gráfico do <em>Residuals vs Leverage</em> os outliers identificados foram os pontos 248 e 358, com resíduos padronizados significativos, indicando que eles podem estar influenciando o ajuste do modelo. O ponto 357 também merece atenção, mas não é tão extremo quanto os outros.</p>
+<p>No gráfico do <em>Residuals vs Leverage</em> o outlier identificado foi o ponto 358, com resíduos padronizados significativos, indicando que ele pode estar influenciando o ajuste do modelo. O ponto 357 também merece atenção, mas não é tão extremo quanto o outro.</p>
 </section>
 </section>
 <section id="interpretações-do-modelo-selecionado" class="level1" data-number="6">
@@ -1043,8 +1046,6 @@ Standardized Coefficients::
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">ShelveLoc =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Good"</span>, <span class="st">"Medium"</span>)), </span>
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Observação</strong>:</p>
-<p>O data.frame <code>novas.preditoras</code> com os novos valores das variáveis preditoras deve ser construído com os mesmos nomes das variáveis preditoras utilizadas no objeto que contém o modelo ajustado.</p>
 <section id="intervalo-de-confiança" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="intervalo-de-confiança"><span class="header-section-number">7.1</span> Intervalo de Confiança</h2>
 <p>Um <strong>intervalo de confiança</strong> captura a incerteza em torno dos <strong>valores médios (valores esperados)</strong> preditos.</p>
