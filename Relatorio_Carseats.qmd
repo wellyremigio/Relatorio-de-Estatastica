@@ -38,7 +38,6 @@ install.packages("ISLR", quiet=TRUE) #instalando pacote
 library(ISLR) #chamando pacote
 
 write.table(Carseats , file="dados_carseats.csv", sep=";", dec=",") #criando arquivo .csv no local de 
-glimpse(Carseats)
 
 ```
 
